@@ -1,0 +1,2024 @@
+
+
+
+
+JAVA HELPER 
+
+
+
+	
+
+Version: 1.1
+
+Date: 06th June, 2016
+Owner: Swapnil Kumbhare
+
+ 
+Contents
+CORE JAVA	3
+SERIALIZATION	8
+THREAD	10
+COLLECTION	14
+EXCEPTIONS	22
+DATABASE	24
+HIBERNATE	26
+SPRING FRAMEWORK	31
+RESTful WEB SERVICES	39
+AngularJS	42
+JQUERY	49
+HTML & CSS	50
+JUNIT	52
+JSP/SERVLETS	56
+JAVASCRIPT	60
+AJAX	60
+MAVEN	60
+XML	60
+JDBC	62
+JMS	63
+UNIX	65
+DATASTRUCTURE	67
+PROJECT	68
+
+
+
+ 
+CORE JAVA
+1.	What is super class of all classes in JAVA?
+Object class
+2.	List down some Object Class methods?
+wait() notify() notifyAll() equals() hashcode() finalize() toString() 
+3.	Have you looked inside equals() method inside Object class?
+4.	Are all methods in interface are abstract?
+Yes. Each method in an interface is also implicitly abstract, so the abstract keyword is not needed.
+5.	If we have two java bean objects, can we use equals method here? What will be the output?
+We need to overwrite equals method to use it properly coz equals method inside Object class uses ‘==’ operator which checks the reference.
+6.	Which Design Principles you have used?
+Object Oriented Design Principles
+7.	Explain Reflection API. When is it used? 
+Java Reflection is a process of examining or modifying the run time behavior of a class at run time.
+The java.lang.Class class provides many methods that can be used to get metadata, examine and change the run time behavior of a class.
+There are 3 ways to get the instance of Class class. They are as follows:
+forName() method of Class class
+getClass() method of Object class
+the .class syntax
+8.	If there is static variables, static block and static method, in what order they will execute?
+static Variables are executed when the JVM loads the Class, and the Class gets loaded when either its been instantiated or its static method is being called.
+static Initializer Block gets Initialized before the Class gets instantiated or before its static method is called, and Even before its static variable is used.
+9.	How to make a class immutable?
+ 	Don’t provide “setter” methods — methods that modify fields or objects referred to by fields.
+This principle says that for all mutable properties in your class, do not provide setter methods. Setter methods are meant to change the state of object and this is what we want to prevent here.
+ 	Make all fields final and private
+This is another way to increase immutability. Fields declared private will not be accessible outside the class and making them final will ensure the even accidentally you cannot change them.
+ 	Don’t allow subclasses to override methods
+The simplest way to do this is to declare the class as final. Final classes in java cannot be overridden.
+ 	Special attention when having mutable instance variables
+Always remember that your instance variables will be either mutable or immutable. Identify them and return new objects with copied content for all mutable objects. Immutable variables can be returned safely without extra effort.
+10.	Explain Abstraction, Encapsulation, Polymorphism and Inheritance?
+Abstraction: Abstraction is the process of separating ideas from specific instances and thus develops classes in terms of their own functionality, instead of their implementation details. Java supports the creation and existence of abstract classes that expose interfaces, without including the actual implementation of all methods. The abstraction technique aims to separate the implementation details of a class from its behavior.
+Encapsulation: The encapsulation is achieved by combining the methods and attribute into a class. The class acts like a container encapsulating the properties. The users are exposed mainly public methods. The idea behind is to hide how things work and just exposing the requests a user can do.
+Polymorphism: The ability to define a function in multiple forms is called Polymorphism. Overriding and Overloading.
+Inheritance: Inheritance allows a Child class to inherit properties from its parent class.
+11.	What are types of Polymorphism?
+ 	RuntimePolymorphism: Overriding is an example of runtime polymorphism. As which method is called is resolved at runtime.
+ 	CompileTimePolymorphism: Overloading is an example of compile time polymorphism. As which method is resolved at compile time.
+12.	What is Overriding and Overloading? Give real time example of each.
+13.	Rules of Overriding?
+Following are rules of method overriding in java which must be followed while overriding any method. 
+1)	private, static and final method cannot be overridden in Java. 
+2)	Method signature must be same including return type, number of method parameters, type of parameters and order of parameters 
+3)	Overriding method cannot throw higher Exception than original or overridden method. Means if original method throws IOException than overriding method cannot throw super class of IOException e.g. Exception but it can throw any sub class of IOException or simply does not throw any Exception. This rule only applies to checked Exception in Java, overridden method is free to throw any unchecked Exception. 
+4)	Overriding method cannot reduce accessibility of overridden method , means if original or overridden method is public than overriding method cannot make it protected. 
+14.	What is Loose coupling and Tight coupling?
+Tight coupling is when a group of classes are highly dependent on one another.
+This scenario arises when a class assumes too many responsibilities, or when one concern is spread over many classes rather than having its own class.
+
+Loose coupling is achieved by means of a design that promotes single-responsibility and separation of concerns.
+A loosely-coupled class can be consumed and tested independently of other (concrete) classes.
+Interfaces are a powerful tool to use for decoupling. Classes can communicate through interfaces rather than other concrete classes, and any class can be on the other end of that communication simply by implementing the interface.
+15.	Explain Generics in Java?
+16.	Why Generics are used?
+1)	Helps us avoid ClassCastExceptions.
+2)	It helps detect errors at compile time and makes your code type safe.
+3)	It helps to avoid type casting while fetching results from collections.
+4)	You can't create generic arrays as shown below because arrays carry runtime type information about the type of elements . Arrays uses this information at runtime to check the type of the object it contains and will throw ArrayStoreException if the type does not match. But with Generics type information gets erased and the array store check will succeed in cases where it should fail. T[] arr = new T[10];
+17.	If I create a List<String> then will the type casting is done at runtime or compile time?
+It’s at compile time.
+18.	Does Generics support Sub Typing (List<Number> num = new ArrayList<Integer>())?
+No. Compile time error. But you can make use of wild card character to achieve this.
+boolean addAll(Collection<? extends E> c)
+This ? extends E makes sure that you can not only add collection of type E but also of subtype of E. ? is called the wildcard and ? is said to be bounded by E. So, if we create a List of Number then we can not only add List of number but we can also add List of Integer or any other subtype of Number.
+19.	Can we call a static method by object reference?
+Yes.
+20.	Can we override static method?
+No.
+21.	If B extends A and both have static method with same name, return type and parameter, Will it compile? If Yes then which method will be called and why?
+Yes it will compile. 
+A a = new B(); and A a = new A();  In these case A class method will be called because object reference is for A.
+B b = new B(); In this case B class method will be called. In case if there is no method in B then A class method will be called.
+22.	Does abstract method is mandatory to be present in abstract class?
+No. Abstract class may or may not have abstract methods, But if a class has abstract methods then class should be abstract.
+23.	Difference between below List lst = new ArrayList<> (); object creation and ArrayList arrLst = new ArrayList<> ();
+In first case the lst object is reference of List so it will not be able to use any methods from ArrayList which are not defined in List interface.
+24.	Difference between static and Singleton? Which should be preferred and when?
+1)	If your Singleton is not maintaining any state, and just providing global access to methods, than consider using static class, as static methods are much faster than Singleton, because of static binding during compile time. But remember its not advised to maintain state inside static class, especially in concurrent environment, where it could lead subtle race conditions when modified parallel by multiple threads without adequate synchronization.
+2) You can also choose to use static method, if you need to combine bunch of utility method together. Anything else, which requires singles access to some resource, should use Singleton design pattern.
+3) Static class provides better performance than Singleton pattern, because static methods are bonded on compile time.
+25.	Can we create child class of Singleton Class?
+No, because constructor is private. It will show compile time error as ‘Constructor is not visible’
+26.	How to create Singleton class?
+We can create Singleton class by making constructor private.
+27.	What is difference between StringBuffer and StringBuilder?
+StringBuffer is synchronized where as StringBuilder is not. StringBuilder is faster.
+28.	What makes String class unique?
+It is immutable. Once object is created then it cannot be changed.
+29.	String String s1 = “Hello” and String s2 = “Hello”, How many objects got created?
+One.
+30.	Difference between String s1 = “Hello”; and String s2 = new String(“Hello”);
+First one is literal and other one is object. Literal is created in internal pool, these will be kept in memory until java exits. Whereas String s2 will create a new object in memory.
+s1 == s2 is false
+s1.equals(s2) is true
+31.	Is int=3; and Integer=3; equal if we use == operator?
+Yes. They are equal. Only one 3 will be created in internal pool. So both have same reference.
+32.	What you need to do when you override equals method? Why?
+We need to override hashcode() as well. Otherwise the contract between equals and hashcode will break.
+Contract is - If two elements are equal then hashcode has to be same but if two elements have same hashcode they are not necessarily same.
+33.	How you decide when to use interface and abstract class?
+34.	What is Enumeration? What is difference between Iterator and Enumeration?
+Enumeration is used to iterate through legacy classes. Has only two methods hasMoreElements() and nextElement(). Cannot modify collection.
+Iterator is used for all collections and can modify collection.
+35.	Can Static blocks refer Non Static members?
+No.
+36.	Can Non Static blocks refer Static members?
+Yes.
+37.	If primitive data type is final can we change the value? 
+No.
+38.	Difference between nested static class and inner class? When and Why to use Inner class?  What is Local Inner class? What is Anonymous Inner Class?
+If we declare inner class inside instance method then that method local inner class, we can access both static and non-static members of Outer class directly.
+If we declare inner class inside static method then we can access only static methods of outer class directly from that method local inner class.
+If we have to do one-time implementation, then we should use Anonymous inner class.
+39.	Can we run inner class directly?
+No Inner class cannot have static methods so we cannot have main method. Inner class are tied to instance of outer class. So Inner class can’t be directly touched.
+40.	What are callback methods?
+The methods which are automatically called by JVM are callback methods.
+JVM understandable method syntax are always ‘private void’.
+41.	What is composite object?
+Composite object doesn’t have a changeable behavior.
+42.	What’s the use of volatile keyword?
+For concurrent environment, It guarantees that any thread that reads a field will see the most recently written value.
+43.	Where do you prefer composite object over interface?
+Member objects with unchangeable behavior - Composition
+Members objects with changing behavior - Interface 
+44.	DO we need to import class if that class is in same package?
+We don't need to import. It is because both are in same package(folder). They are automatically imported no need to write import statement for that.
+45.	If one method has Object and same other method has String as parameter and i am calling method by passing null then which method will be called.
+The method taking child parameter will be called(In this case String parameter). if the parameter is not child parent related then compile time error as that method will not able to resolve(ambiguous)
+46.	How to create singleton object?
+By creating constructor as private. So the object will not be created from outside. Create object in same class and share instance through implementing public getInstance method.
+47.	What will generics do internally?
+
+48.	If we have a parent and child class? how can we add child objects to parent list?
+List<Parent> p = new ArrayList<Parent>();
+You can add child of Parent class to this list but in above Signature you have to keep ‘Parent’ on both sides you can’t keep as List<Child> p = new ArrayList<Parent>();
+49.	Difference between equals and ==?
+== operator is used to compare two object reference values while 'equals operator is used to compare two contents which is stored in objects.
+ 
+SERIALIZATION
+50.	What is Serialization and DeSerialization? How is it done?
+Serialization: Process of converting object from Java supported form to File supported or Network supported form.
+DeSerialization: Process of converting an object from File supported or Network supported form to Java supported form.
+51.	How to implement Serialization and in which memory the state is stored?
+It is stored in permanent storage.
+52.	In which package is Serializable interface?
+Java.io.* 
+It does not contain any method. It’s a marker interface.
+53.	If Serializable is not implemented will code compile?
+Yes it will compile but it will throw exception at runtime (NotSerializableException)
+54.	Is String Serializable?
+Yes.
+55.	What to do if we don't want to serialize content from child class without transient?
+If we explicitly want child content not to be serialized then make them transient or override writeObject(ObjectOutputStream) and readObject(ObjectInputStream)
+56.	If child class is not serializable then will it be serialized if parent is serialized?
+Child class is always serialized if parent is serialized. (But if child is serialized then parent is not, You will have to explicitly serialize it otherwise it stores default values.)
+57.	What is the id which is generated after implementing Serializable interface?
+serialVersionUID
+58.	How to Serialize and DeSerialize without creating two different instances?
+Just implement readResolve() method of Object class.
+59.	Transient variable
+1) Transient keyword can only be applied to fields or member variable. Applying it to method or local variable is compilation error.
+2) Another important point is that you can declare an variable static and transient at same time and java compiler doesn't complain but doing that doesn't make any sense because transient is to instruct "do not save this field" and static variables are not saved anyway during serialization.
+3) In similar way you can apply transient and final keyword together to a variable compiler will not complain but you will face another problem of reinitializing a final variable during deserialization.
+4) Transient variable in java is not persisted or saved when an object gets serialized.
+60.	Difference between transient and volatile?
+61.	Can we serialize multiple objects to the file?
+Yes. In the order which we save the object while serialization, the same object order will come while deserialization. If you mismatch the order then ClassCastException will occur.
+If we do not know order of object in Serialization then read the object as Object class and check if that object is instance of the required object with instanceOf operator and then type cast it.
+62.	Final vs transient?
+Final variable is always replaced by value at compile time. There is no concept of final at runtime.
+No significance of making it transient. No Impact.
+63.	Static vs transient?
+Static variable is not part of object instance so it will not be saved to file.
+But if you save an object and deSerialize it then you can get the static variable value but that value is coming from Class load not the file.
+Declaring static variable as transient doesn’t have any significance. 
+64.	What is transient variable?
+Transient variable is not Serializable.
+Transient modifier is applicable only for variables.
+JVM ignores original value of variable declared transient and stores the default value for that variable.
+65.	What is object graph in Serialization?
+If the object A has references to other multiple objects, all the group of objects will be serialized when A is serialized. This group of object is Object Graph.
+We need to implement Serializable interface to class A and all classes reachable by A.
+66.	If parent is not Serializable and Child is Serializable, will there be compile time error or runtime exception?
+No, there won’t be any failure. 
+JVM will ignore original value from non Serializable area(In this case any variable from Parent class) and store default value. 
+Say suppose in parent there is I = 10 you are changing that value to I = 20 and serializing. The serialized file will have default value i.e. 0 for int. But while deserialization if the parent does not implement Serializable then JVM will run ‘instance control flow’ (identification of instance member, Execution of instance variable assignments & instance blocks and no argument constructor) for parent class. If the parent doesn’t have no argument constructor then it will throw InvalidClassException.
+So after deserialization value of I will be 10 instead of 20/0.
+67.	What is need of Customized Serialization?
+If we are using transient variable then there can be loss of information. In this case we use customized Serialization. 
+Use two methods to customize. These are automatically called by JVM.
+private void writeObject(ObjectOutputStream os) throws Exception
+private void readObject(ObjectOutputStream os) throws Exception
+68.	What is role of serialVersionUID?
+For every object, sender side JVM will generate a unique id based on sender side bean class. 
+Receiver side JVM will match unique id with local class unique id, to check if that is the correct object.
+InvalidClassException if id is not matched.
+Sender and Receiver JVM (in case JVM’s are different or even if JVM is same but class is modified) may generate different ID so we should not be dependent on default values.
+69.	What is Externalization?
+There are some areas where Serialization is a problem like below. 
+Most of the work in Serialization is taken care by JVM. Programmer doesn’t have much control. 
+It’s not possible to save part of Object. All properties are saved. Unneccessary execution time saving all if we need only a little.
+Here externalization comes in picture.
+In Externalization, everything is been taken care by programmer. Part of object can be saved. Performance improved.
+Externalizable interface has to be implemented. Has two methods, writeExternal() and readExternal().
+Externalizable interface is child interface of Serializable. Both came in 1.1 version.
+Transient keyword won’t play any role in Externalization.
+ 
+THREAD
+70.	Which methods are used for Thread intercommunication and in which class they reside?
+Wait notify notifyAll – reside in Object class
+Thread which wants some updating to happen calls wait() and thread which is updating calls notify().
+Once wait called immediately releases lock and move to waiting state. If thread calls notify method on any object it releases lock of that object but may not immediately. Except wait notify notifyAll there is no other method where thread releases lock.
+71.	Why wait notify and notifyAll are present in Object class?
+These methods are used only for multi-threading. These methods are applicable on objects, thread can call this method on any object, so it resides in Object class.
+72.	Can we call wait notify notifyAll from non-synchronized area?
+No. They should be used from synchronized area. The thread should be owner of that object i.e. thread should have lock of that object. If it is not in synchronized area then it will give IllegalMonitorException. 
+73.	Difference between wait and sleep?
+Wait releases the lock, it is resumed only through notify methods whereas sleep only pauses for some time. After sleep time it goes to runnable state.
+74.	What is suspend() and resume()?
+Parent can suspend child thread using suspend() of Thread classs, immediately thread moves to suspended state.
+Parent resumes child thread using resume() of Thread class.
+75.	Difference between Class locking and Object locking? Difference between static synchronized and normal synchronized blocks?
+If class or static method is synchronized, then only one instance can use at a time where as in object locking or normal synchronized block only one thread of that instance can access at a time.
+76.	When is IllegalThreadStateException is thrown?
+If we try to start a thread which is already started may throw this exception.
+77.	How does deadlock occur? 
+It can happen with only use of synchronized keyword. It occurs when one thread is waiting for other thread to release and other thread is waiting for first thread.
+78.	What is daemon thread?
+79.	How to avoid deadlock?
+ 	May be by accessing the elements in ordered way. If thread1 is has lock of object2 and thread2 has lock of object1 and they are waiting for each other to be released, this is deadlock situation. Develop your code to access Object1 and Object2 in order. Thread2 has lock of object1 then thread1 should wait for object1 lock to be released(it should not start executing object2).
+ 	Giving timeout – if timeout expires release the lock.
+80.	What is race condition? How to avoid it?
+A race condition occurs when two or more threads can access shared data and they try to change it at the same time. Because the thread scheduling algorithm can swap between threads at any time, you don't know the order in which the threads will attempt to access the shared data. Therefore, the result of the change in data is dependent on the thread scheduling algorithm, i.e. both threads are "racing" to access/change the data.
+Problems often occur when one thread does a "check-then-act" (e.g. "check" if the value is X, then "act" to do something that depends on the value being X) and another thread does something to the value in between the "check" and the "act".
+
+May be by locking(synchronize) the shared resource. Semaphore, CountDownLatch, Mutex, etc
+81.	What is ThreadPool?
+82.	What is Semaphore, CountDownLatch, Mutex, etc
+83.	How to write thread safe singleton in java?
+getInstace() method first check for whether instance is null and than initialized the instance and return to caller. Whole purpose of Singleton is that getInstance should always return same instance of Singleton. if you call getInstance() method from two thread simultaneously its possible that while one thread is initializing singleton after null check, another thread sees value of _instance reference variable as null (quite possible in java) especially if your object takes longer time to initialize and enters into critical section which eventually results in getInstance() returning two separate instance of Singleton.
+
+You can synchronize the below block so that only one thread checks for the instance at a time.
+if(_instance == null){   //race condition if two threads sees _instance= null
+_instance = new Singleton();
+}
+84.	In how many ways we can prevent thread execution? How we can stop thread execution temporarily?
+Yield()	: This method stops the execution and allows threads of same priority to run(not the min priority), and thee thread which is yielded comes to waiting state and can’t determine when it will get chance to resume. If multiple threads are waiting with same priority, we can’t expect which thread will run, it depends on thread scheduler. By calling this method, thread is moved from running state to runnable thread.
+join()	: If t1 thread wants t2 thread to be completed (may be waiting for some output from t2) then t1 will call join method on t2 (like t1 will execute t2.join()). This will make t1 to wait and t2 to execute.
+After join thread will go to wait state, It will again go to runnable state if either t2 completes or time expires or if waiting thread gets Interrupted.
+sleep()	: It makes thread to pause and move to sleeping state from running state. It will go to runnable state only if interrupted or time expired.
+85.	How can be a thread interrupted?
+A thread can interrupt sleeping thread or waiting thread by using interrupt() of Thread class.
+If a target thread never entered into sleeping or waiting thread in its lifetime then interrupt() is wasted.
+86.	Explain lifecycle of Thread?
+ 	New
+The thread is in new state if you create an instance of Thread class but before the invocation of start() method.
+ 	Runnable
+The thread is in runnable state after invocation of start() method, but the thread scheduler has not selected it to be the running thread.
+ 	Running
+The thread is in running state if the thread scheduler has selected it.
+ 	Non-Runnable (Blocked)
+This is the state when the thread is still alive, but is currently not eligible to run.
+ 	Terminated
+A thread is in terminated or dead state when its run() method exits.
+87.	How synchronization is implemented internally?
+Every object in java has a unique lock. Whenever we use synchronized keyword then only lock concept will come into picture. Once synchronized block executed then automatically lock is released, then JVM will provide lock to other thread. Acquiring and releasing lock is taken care by JVM.
+88.	Can thread execute non synchronized area if it doesn’t have a lock yet to execute synchronized area on object?
+Yes, it can be executed by multiple threads. So usually non synchronized area should have read only operations and synchronized area should have update delete operations.
+89.	Does synchronization needed if two different objects are used by thread?
+No need of synchronization here, because threads are operating on different java objects.
+90.	When should we prefer synchronized block over synchronized method?
+If only few lines needed to be synchronized then no need to synchronize whole method, it will degrade performance.
+91.	Can thread acquire multiple locks simultaneously?
+Yes. Below thread has two locks on current object and ‘y’ object. It can have multiple locks from different objects.
+Synchronized void m1(){
+Y y = new Y();
+Synchronized(y)
+92.	Which Thread methods guarantees thread to stop?
+Thread.stop() – Is deprecated now.
+93.	Can we determine the order thread is running? 
+No.
+94.	So does Thread after sleep time starts automatically?
+No. Thread after sleep time goes to runnable state but does not automatically start. It depends on the priority of threads.
+95.	What are thread priorities?
+Every thread in java has some priority, it may be default priority generated by JVM or customized priority provided by programmer. The valid range of thread priorities is 1 to 10. Thread class defines some constants as below to represent some standard priorities.
+1 is Thread.MIN_PRIORITY
+5 is Thread.NORM_PRIORITY
+10 is Thread.MAX_PRIORITY
+96.	When are Thread priorities used?
+97.	What is default priority of Thread?
+Default priority for only main thread is 5, but for every other thread default priority is inherited from parent.
+98.	When is IllegalArgumentException thrown in thread?
+Allowed values in setPriority(int arg) is 1 to 10, if we try to give any other value it will throw IllegalArgumentException.
+99.	Difference between synchronized and Lock interface?
+ 	Synchronized releases lock in structured way where as Lock is flexible.
+ 	Lock implementations provide additional functionality over the use of synchronized methods and statements by providing a non-blocking attempt to acquire a lock (tryLock()), an attempt to acquire the lock that can be interrupted (lockInterruptibly(), and an attempt to acquire the lock that can timeout (tryLock(long, TimeUnit)).
+ 	When locking and unlocking occur in different scopes, care must be taken to ensure that all code that is executed while the lock is held is protected by try-finally or try-catch to ensure that the lock is released when necessary. With synchronized keyword try-catch is not needed.
+100.	Ways to create Thread?
+Implement the interface java.lang.Runnable and pass an instance of the class implementing it to the 
+Thread constructor. Extend Thread itself and override its run() method.
+You can even create anonymous inner class for Runnable and pass that to Thread instance.
+ 
+COLLECTION
+101.	What is difference between List and Set? HashMap and HashTable? ArrayList and Vector? ArrayList and LinkedList?
+Set doesn’t contain duplicates where as List is an ordered collection which contains duplicates.
+ArrayList is not synchronized (fast) and extends the size by half whereas Vector is synchronized(slow) and extends the size by full size.
+HashMap is not synchronized and it accepts one null key whereas HashTable is synchronized and doesn’t accept null keys. 
+102.	Why to choose ArrayList over Array?
+ArrayList is collection object and it has utility methods to be used. 
+Once we create array there is no chance of increasing and decreasing size. ArrayList are grow able in size.
+103.	What is difference between Collection and Collections?
+the Collections class is a utility class having static methods for doing operations on objects of classes which implement the Collection interface. For example, Collections has methods for finding the max element in a Collection.
+The Collection interface defines methods common to structures which hold other objects. List and Set are sub interfaces of Collection, and ArrayList and HashSet are examples of concrete collections.
+104.	How to do binary search in java?
+ArrayList<String> arlst=new ArrayList<String>();
+      
+   // populate the list
+   arlst.add("TP");
+   arlst.add("PROVIDES");
+   arlst.add("QUALITY");
+   arlst.add("TUTORIALS");
+      
+   // search the list for key 'QUALITY'
+   int index=Collections.binarySearch(arlst, "QUALITY");     
+System.out.println("'QUALITY' is available at index: "+index);
+105.	Can we limit the ArrayList?
+There is no specific method to do that. You can write it logically to limit arraylist to 10 like below
+If(arrList.size() < 10) { arrList.add(“abc”) }
+OR you can create custom array list by extending ArrayList and override add method(Inside here you can use the same logic to limit)
+106.	What is List<?>? Difference between List<?> and List<Object>?
+List<?> means you can add any thing. 
+Say you have a function and input parameter is List. public void function_name (List<?>) { }
+Here you can send any list(for eg. List<String>, List<Object>, List<Integer>,...) 
+But if it is List<Object> then you cannot send List<String> only List<Object is allowed>
+107.	As String inherits from Object, Does List<String> also inherits from List<Object>?
+No.
+108.	What will happen if we add List rawList = new ArrayList() to List<String> strList = new ArrayList<String>()?
+rawList is untyped so no type checks are performed. So no compile time error. It will show only some warnings and can lead to weird runtime behavior.
+109.	There are two Employee Objects with ‘id’ same and ‘name’ different. If we add this in HashSet, will there be one entry or two entries? What to do if I want only one entry if the id’s are same?
+There should be two entries coz they are two different objects.
+You need to override equals method to give equality.
+110.	Can we input Integer type in int[]?
+Only Integer I = 10; not if it is object.
+111.	What is WeakHashMap and IdentityHashMap?
+WeakHashMap has weak keys. Garbage Collector is able to free the key object if it is not been used. Garbage Collector cannot release key object with any other HashMap. 
+IdentityHashMap checks the equality with ‘==’, not with equals().
+112.	Implementations of List interface?
+ArrayList©, LinkedList©, Vector© & Stack© (Vector & Stack are Legacy classes) 
+113.	Implementation of Set Interface?
+HashSet© LinkedHashSet©
+SortedSet(I)  NavigableSet(I)(It contains several methods for navigation purpose)  TreeSet©
+114.	What are Queues?
+It’s child interface of Collection. It’s a group of individual objects prior to processing then we should go for Queue. It’s FIFO but based upon our requirement we can prioritize order also.
+Before sending email we need to store email ids in the same order only. Here queue is best choice.
+Queue came in 1.5 v.
+Implementation classes: PriorityQueue
+BlockingQueue  PriorityBlockingQueue, LinkedBlockingQueue
+115.	Implementation classes of Map interface?
+HashMap©  LinkedHashMap©
+WeakHashMap©
+IdentityHashMap©
+Hashtable© (Dictionary© is parent class of Hashtable. It’s an abstract class.)  Properties© (These Hashtable, Dictionary and Properties are Legacy classes.)
+SortedMap(I): Used if we want to represent group of key value pairs according to some sorting order of keys only(Never based on value).  NavigableMap(I)  TreeMap©
+116.	Is null allowed for TreeMap?
+From 1.7 null key not acceptable.
+117.	How to use binarySearch algorithm to sort List?
+Mandatory the list should be sorted then use binarySearch() method of List.
+Return type of binarySearch() method is int(index of the element searched).
+ArrayList l = new ArrayList();
+binarySearch(l,”z”);
+If the list is sorted in Comparator pattern then we will need to pass same comparator in binarySearch() method as third parameter.
+118.	Difference between reverse and reverserOrder method of List?
+Reverse is used to reverse order of elements of List.
+ReverseOrder is used to get reversed comparator.
+Comparator c1 = Collections.reverseOrder(Comparator c2);
+C2 is ascending but c1 will be descending.
+119.	What is the sorted order for AKnaZ?
+AKZan
+120.	How to do sorting in Collection?
+Comparable: Default natural sorting order.
+Comparator: Customized sorting.
+121.	What are ways to get objects one by one from collection?
+Use Cursors, which are as bellows:
+Enumeration(I), Iterator(I), ListIterator(I)
+122.	What is enumeration?
+We can use Enumeration to get objects one by one from Legacy collection object(Vector). We can create Enumeration object using Vector.elements() of vector class.
+Enumeration e = Vector.elements();
+Enumeration contains only two methods hasMoreMethod() and nextElement().
+Doesn’t have remove capabilities.
+123.	What is Iterator?
+Used to iterate any collection. Hence is universal cursor.
+By using Iterator we can perform both read and remove operations.
+Iterator object is created by Collection.iterator() method.
+Methods: hasNext(), next(), remove(), 
+124.	What is datastructure for HashSet?
+Hashtable
+125.	What will happen if we try to insert duplicate in Set?
+No compile time error. Return type is Boolean, in case of duplicate will return false.
+126.	What are utility classes in collection framework?
+Collections and Arrays
+127.	Difference between HashMap and IdentityHashMap?
+HashMap uses equals() where as IdentityHashMap uses == operator.
+128.	Difference between HashMap and WeakHashMap?
+Garbage Collector will not be able to destroy object if it is associated with HashMap.
+With WeakHashMap Garbage Collector will be able to destroy.
+129.	Difference between set and add method of List?
+set replaces the element at the given index. add inserts the element at the given index and moves all elements ahead of it one position.
+130.	Common methods of Collection Interface?
+Add(), addAll(Collection c), remove(), removeAll(Collection c), clear()(all object will be removed), retainAll(Collection c)(all object will be removed except specified ‘c’ with this method), contains(), containsAll(Collection c), isEmpty(), size(),  toArray(), iterator()
+131.	List Interface methods?
+Add(), addAll(), remove(), removeAll(), get(), set(),  indexOf(), lastIndexOf(), listIterator()
+132.	Does ArrayList implements Serializable?
+All collections implements Serializable by default coz it is sent over network.
+Also all collections by default implements Clonnable interface.
+Only ArrayList and Vector implements RandomAccess interface.
+For Random access ArrayList is best but for insertion and deletion ArrayList is worst.
+133.	How to get synchronized version of ArrayList object?
+By default ArrayList is not synchronized.
+ArrayList arr = new ArrayList();
+List lst = Collections.synchronizedList(arr);
+Similarly you can use synchronizedSet() and synchronizedMap() for set and map respectively.
+134.	Do we need to have all elements of same type(heterogeneous) in all implementations of Collection?
+Only in TreeMap and TreeSet we can’t have elements of different type(as they are compared with each other) in rest collections we can have different types.
+135.	What datastructure HashMap internally uses?
+Array and LinkedList.
+136.	Hashmap sorting algorithm?
+Hashmap sorting is done using Comparator. We use Collection.sort to sort HashMap.
+Collection.sort uses MergeSort(It guarantees O(nlogn)). 
+137.	What algorithm does Arrays.sort() use?
+Arrays.sort() use quick sort as well as merge sort algorithm.
+Quicksort is used for arrays of primitive types while mergesort for Object[] arrays.
+The main reason why mergesort is used for Objects that mergesort is stable - it does not reorder elements that are equal.
+For primitives the stability of the sort is meaningless, as you cannot distinguish two values that are equal. Hence, quicksort is used (except when sorting an array of Objects, for which mergesort is performed). Moreover, quicksort can be done in place, so there is no need to allocate another array. 
+138.	What is stability as per above question?
+When sorting some kinds of data, only part of the data is examined when determining the sort order. For example, in the card sorting example to the right, the cards are being sorted by their rank, and their suit is being ignored. This allows the possibility of multiple different correctly sorted versions of the original list. Stable sorting algorithms choose one of these, according to the following rule: if two items compare as equal, like the two 5 cards, then their relative order will be preserved, so that if one came before the other in the input, it will also come before the other in the output.
+When equal elements are indistinguishable, such as with integers, or more generally, any data where the entire element is the key, stability is not an issue. Stability is also not an issue if all keys are different.
+139.	What is difference between Merge sort and Quick sort?
+Merge Sort:
+ 	Has O(nlogn) – Worst case running time 
+ 	Has O(n) space complexity. Makes a complete copy of array.
+ 	Doesn’t reorder if elements are equal. So less movements.
+Quick Sort:
+ 	Has O(nlogn) – Average case running time and O(n2) worst case running time. 
+ 	Sorting happens in place doesn’t require extra memory.
+ 	Reorders even if the objects are equal (equal but two different references). So more movements. (Doesn’t matter in case of primitive type instead of object coz it’s meaningless)
+140.	If there are random numbers in ArrayList and I want to remove all the ‘2’, How should it be done?
+We can use removeAll method to remove all the elements which is ‘2’.
+141.	How to avoid ConcurrentModificationException while iterating and modifying ArrayList?
+We can convert that ArrayList to CopyOnWriteArrayList(This is thread safe and helps avoid ConcurrentModificationException).
+142.	What is difference between Iterator and ListIterator?
+ 	Iterator is used for traversing List and Set both. We can use ListIterator to traverse List only, we cannot traverse Set using ListIterator. 
+ 	We can traverse in only forward direction using Iterator. Using ListIterator, we can traverse a List in both the directions (forward and Backward).
+143.	Does Iterator.remove() does not cause ConcurrentModificationException?
+If it is single threaded and no other process is modifying the list and only Iterator is iterating and using it’s own remove(not by remove of List collection) method to modify List then it will not throw ConcurrentModificationException. 
+144.	What is difference between synchronized HashMap and ConcurrentHashMap?
+The "scalability issues" for Hashtable are present in exactly the same way in Collections.synchronizedMap(Map) - they use very simple synchronization, which means that only one thread can access the map at the same time.
+
+This is not much of an issue when you have simple inserts and lookups (unless you do it extremely intensively), but becomes a big problem when you need to iterate over the entire Map, which can take a long time for a large Map - while one thread does that, all others have to wait if they want to insert or lookup anything.
+
+The ConcurrentHashMap uses very sophisticated techniques to reduce the need for synchronization and allow parallel read access by multiple threads without synchronization and, more importantly, provides an Iterator that requires no synchronization and even allows the Map to be modified during interation (though it makes no guarantees whether or not elements that were inserted during iteration will be returned).
+
+Also one other difference is that ConcurrentHashMap will not preserve the order of elements in the Map passed in. It is similar to HashMap when storing data. There is no guarantee that the element order is preserved. While Collections.synchronizedMap() will preserve the elements order of the Map passed in. For example, if you pass a TreeMap to ConcurrentHashMap, the elements order in the ConcurrentHashMap may not be the same as the order in the TreeMap, but Collections.synchronizedMap() will preserve the order.
+
+Furthermore, ConcurrentHashMap can guarantee that there is no ConcurrentModificationException thrown while one thread is updating the map and another thread is traversing the iterator obtained from the map.
+	╔═══════════════╦═══════════════════╦═══════════════════╦═════════════════════╗
+	║   Property    ║     HashMap       ║    Hashtable      ║  ConcurrentHashMap  ║
+	╠═══════════════╬═══════════════════╬═══════════════════╩═════════════════════╣ 
+	║      Null     ║     allowed       ║              not allowed                ║
+	║  values/keys  ║                   ║                                         ║
+	╠═══════════════╬═══════════════════╬═════════════════════════════════════════╣
+	║Is thread-safe ║       no          ║                  yes                    ║
+	╠═══════════════╬═══════════════════╬═══════════════════╦═════════════════════╣
+	║     Lock      ║       not         ║ locks the whole   ║ locks the portion   ║        
+	║  mechanism    ║    applicable     ║       map         ║                     ║ 
+	╠═══════════════╬═══════════════════╩═══════════════════╬═════════════════════╣
+	║   Iterator    ║               fail-fast               ║       fail-safe     ║ 
+	╚═══════════════╩═══════════════════════════════════════╩═════════════════════╝
+
+145.	What is difference between HashMap and LinkedHashMap?
+ 	First difference between LinkedHashMap and HashMap is order, HashMap doesn't maintain any order while LinkedHashMap maintains insertion order of elements in Java. 
+ 	LinkedHashMap also requires more memory than HashMap because of this ordering feature. As I said before LinkedHashMap uses doubly LinkedList to keep order of elements.
+ 	LinkedHashMap actually extends HashMap and implements Map interface. 
+146.	When is UnSupportedException thrown?
+147.	Can Collection hold primitive data type?
+No.
+148.	If HashMap is made final, can we put values?
+The final keyword is used to make sure the reference is not changed (that is, the reference it has can't be substituted with a new one)
+But, if the attribute itself is modifiable then it is ok to do.
+149.	How does HashMap works?
+HashMap get(Key k) method calls hashCode method on the key object and applies returned hashValue to its own static hash function to find a bucket location(backing array) where keys and values are stored in form of a nested class called Entry (Map.Entry) . 
+150.	If we try to put same key in HashMap, how it determines whether the key is already present?
+151.	How to iterate HashMap? In how many ways we can iterate it?
+Method #1: Iterating over entries using For-Each loop.
+Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+    System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
+}
+
+Method #2: Iterating over keys or values using For-Each loop.
+Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+
+//iterating over keys only
+for (Integer key : map.keySet()) {
+    System.out.println("Key = " + key);
+}
+
+//iterating over values only
+for (Integer value : map.values()) {
+    System.out.println("Value = " + value);
+}
+
+Method #3: Iterating using Iterator.
+Map map = new HashMap();
+Iterator entries = map.entrySet().iterator();
+while (entries.hasNext()) {
+    Map.Entry entry = (Map.Entry) entries.next();
+    Integer key = (Integer)entry.getKey();
+    Integer value = (Integer)entry.getValue();
+    System.out.println("Key = " + key + ", Value = " + value);
+}
+
+152.	How to iterate SET?
+// create hash set
+   HashSet <String> newset = new HashSet <String>();
+                  
+   // populate hash set
+   newset.add("Learning"); 
+   newset.add("Easy");
+   newset.add("Simply");  
+      
+   // create an iterator
+   Iterator iterator = newset.iterator(); 
+      
+   // check values
+   while (iterator.hasNext()){
+   System.out.println("Value: "+iterator.next() + " ");  
+   }
+
+153.	What does hashcode() method returns?
+It returns an Integer value.
+154.	Which class we can find equals and hashcode methods?
+Object.
+155.	Do we need to override equals method always to implement a functionality of checking equality of two objects?
+Yes.
+156.	Can we store values in order in HashMap?
+Yes. Using LinkedHashMap.
+Also we can specify whether the elements will be stored in the linked list by insertion order, or by order of last access by using the right constructor while implementing LinkedHashMap. 
+157.	Which is the best collection to deal with huge data?
+158.	Which collection is good for random access, ArrayList or LinkedList?
+ArrayList.
+159.	Which collection should be preferred if I want to add an element and why, ArrayList or LinkedList?
+LinkedList should be preferred. 
+LinkedList<E> allows for constant-time insertions or removals using iterators, but only sequential access of elements. In other words, you can walk the list forwards or backwards, but finding a position in the list takes time proportional to the size of the list.
+
+ArrayList<E>, on the other hand, allow fast random read access, so you can grab any element in constant time. But adding or removing from anywhere but the end requires shifting all the latter elements over, either to make an opening or fill the gap. Also, if you add more elements than the capacity of the underlying array, a new array (1.5 times the size) is allocated, and the old array is copied to the new one, so adding to an ArrayList is O(n) in the worst case but constant on average.
+160.	Which collection is good for iterating, ArrayList or LinkedList?
+Both take same time when performance considered.
+161.	What is fail-fast?
+It means if the collection is modified while it’s getting iterated will throw ConcurrentModificationException.
+162.	Difference between Comparator and Comparable interface?
+ 
+163.	What is default size of HashMap when the object is created? 
+Vector - 10, ArrayList - 10, HashTable - 11, HashMap - 16, HashSet – 16
+ 
+EXCEPTIONS
+164.	Why we use Custom Exceptions?
+Its good to have custom exceptions in your application, one may be a top level custom exception for applications, others at the module/package levels. If you have some specific function/operation in app and you need let the user know if any exception occurred during the operation then better to add custom exception for that operation. It will be easy to debug/investigate the issues.
+
+Also you can create custom Exception for throwing custom error conditions like in our case we created LoyaltyIDException to catch and handle if our validation for LoyaltyID fails. If LoyaltyID is invalid then we throw LoyaltyIDException.
+165.	List some Checked and Unchecked exceptions?
+Unchecked Exception	Checked Exception
+ArithmeticException
+ArrayIndexOutOfBoundsException
+ArrayStoreException 
+ClassCastException	
+IllegalArgumentException
+IllegalMonitorStateException
+IllegalStateException
+IllegalThreadStateException
+IndexOutOfBoundsException
+NullPointerException
+NumberFormatException	ClassNotFoundException	
+InterruptedException
+NoSuchMethodException
+IOException
+SQLException
+
+166.	Can we catch Error? Can we catch Throwable?
+Yes
+167.	The customized exception you created for your project was Checked or UnChecked?
+Checked Exception.
+168.	Difference between OutOfMemoryError and StackOverFlowError? How to remove those?
+OutOfMemoryError is related to Heap. If you have large objects (or) referenced objects in memeory, then you will see OutofMemoryError. If you have strong references to objects, then GC can't clean the memory space allocated for that object. When JVM tries to allocate memory for new object and not enough space available it throws OutofMemoryError because it can't allocate required amount of memory.
+How to avoid: Make sure un-necessary objects are available for GC
+
+StackOverflowError is related to stack. All your local variables and methods calls related data will be on stack. For every method call one stack frame will be created and local as well as method call related data will be placed inside the stack frame. Once method execution is completed, stack frame will be removed. ONE WAY to reproduce this is, have infinite loop for method call, you will see stackoverflow error, because stack frame will be populated with method data for every call but it won't be freed (removed).
+How to avoid Make sure method calls are ending (not in infinite loop)
+169.	Memory management best practices?
+170.	Difference between NoClassDefFoundError and ClassNotFoundException?
+For ClassNotFoundException:
+Thrown when an application tries to load in a class through its string name using:
+The forName method in class Class.
+The findSystemClass method in class ClassLoader.
+The loadClass method in class ClassLoader.
+but no definition for the class with the specified name could be found.
+
+For NoClassDefFoundError:
+Thrown if the Java Virtual Machine or a ClassLoader instance tries to load in the definition of a class (as part of a normal method call or as part of creating a new instance using the new expression) and no definition of the class could be found.
+
+The searched-for class definition existed when the currently executing class was compiled, but the definition can no longer be found.
+So, it appears that the NoClassDefFoundError occurs when the source was successfully compiled, but at runtime, the required class files were not found. This may be something that can happen in the distribution or production of JAR files, where not all the required class files were included.
+
+As for ClassNotFoundException, it appears that it may stem from trying to make reflective calls to classes at runtime, but the classes the program is trying to call is does not exist.
+
+The difference between the two is that one is an Error and the other is an Exception. With NoClassDefFoundError is an Error and it arises from the Java Virtual Machine having problems finding a class it expected to find. A program that was expected to work at compile-time can't run because of class files not being found, or is not the same as was produced or encountered at compile-time. This is a pretty critical error, as the program cannot be initiated by the JVM.
+
+On the other hand, the ClassNotFoundException is an Exception, so it is somewhat expected, and is something that is recoverable. Using reflection is can be error-prone (as there is some expectations that things may not go as expected. There is no compile-time check to see that all the required classes exist, so any problems with finding the desired classes will appear at runtime.
+171.	Is catch block mandatory?
+Either catch or final block should be there.
+172.	Difference between final, finally and finalize?
+173.	Can we throw exception from an overridden method?
+We cannot override a method and throw checked exception.
+We can override a method and throw unchecked exception.
+We can override a method throwing exception and in child class method we may either give the same exception, child of that exception or no exception.
+We can’t change from unchecked exception in parent to checked exception in child. The other way is permitted.
+174.	Does catch block has to be in order?
+Yes. To prevent unreachable code.
+ 
+DATABASE
+175.	Which Database you have worked on?
+Oracle 11G
+176.	What does G stand for in Oracle 11G?
+Grid
+177.	Query to delete records from child table and parent table?
+178.	How to load hierarchal data into relational database? It will be having duplicate id’s?
+We can use Merge. ‘MERGE …. WHEN NOT MATCHED THEN INSERT …’
+179.	Difference between primary key and unique key?
+Primary key is only one in table, Unique key can be more than one
+Primary key is never null, Unique key allows one null
+180.	Difference between UNION and UNION ALL?
+UNION removes duplicate records (where all columns in the results are the same), UNION ALL does not.
+181.	Difference between Functions and Stored Procedure?
+ 	Function must return a value.	Stored procedure may or not return values.
+ 	Will allow only Select statement, it will not allow us to use DML statements. Stored procedure can have select statements as well as DML statements such as insert, update, delete, etc
+ 	It will allow only input parameters, doesn’t support output parameters.	Stored procedure can have both input and output parameters.
+ 	It will not allow us to use try-catch blocks.	For exception handling we can use try catch blocks in Stored procedure.
+ 	Transactions are not allowed within functions.	Can use transactions within Stored procedures.
+ 	We can use only table variables; it will not allow using temporary tables.	Stored procedure can use both table variables as well as temporary table in it.
+ 	Stored procedures can’t be called from function.	Stored Procedures can call functions.
+ 	Functions can be called from select statement.	Procedures can’t be called from Select/Where/Having etc statements. Execute/Exec statement can be used to call/execute stored procedure.
+ 	UDF can be used in join clause as a result set.	Procedures can’t be used in Join clause.
+182.	How you called Stored Procedure in your project? 
+We called stored procedure from Hibernate. Just created query as below and then query.list to get result.
+Query query = session.createSQLQuery(
+	"CALL GetStocks(:stockCode)")
+	.addEntity(Stock.class)
+	.setParameter("stockCode", "7277");			
+List result = query.list();
+for(int i=0; i<result.size(); i++){
+	Stock stock = (Stock)result.get(i);
+	System.out.println(stock.getStockCode());
+}
+183.	List down some inbuilt functions?
+Count() Max() Sum() to_char() AVG() FIRST() LAST()
+184.	What are Views?
+185.	What’s the use of Temp table?
+186.	What are ACID properties?
+ 	Atomicity. In a transaction involving two or more discrete pieces of information, either all of the pieces are committed or none are.
+ 	Consistency. A transaction either creates a new and valid state of data, or, if any failure occurs, returns all data to its state before the transaction was started.
+ 	Isolation. A transaction in process and not yet committed must remain isolated from any other transaction.
+ 	Durability. Committed data is saved by the system such that, even in the event of a failure and system restart, the data is available in its correct state.
+187.	What is Normalization?
+Normalization is the process of efficiently organizing data in a database. There are two goals of the normalization process: eliminating redundant data (for example, storing the same data in more than one table) and ensuring data dependencies make sense (only storing related data in a table). Both of these are worthy goals as they reduce the amount of space a database consumes and ensure that data is logically stored. There are several benefits for using Normalization in Database.
+Benefits:
+ 	Eliminate data redundancy
+ 	Improve performance
+ 	Query optimization
+ 	Faster update due to less number of columns in one table
+ 	Index improvement
+188.	Query related questions 
+http://java67.blogspot.com/2013/04/10-frequently-asked-sql-query-interview-questions-answers-database.html 
+189.	What are JOINS? Explain LEFT, RIGHT, OUTER and FULL JOIN.
+190.	How to improve query performance?
+By using Indexes, i.e., creating clustered, and non-clustered indexes, whenever it is required.
+Reduce JOINS
+ 
+HIBERNATE
+191.	Why Hibernate?
+ 	It helps developers get rid of writing complex and tedious SQL statement.
+ 	It helps reduce the lines of code, makes system more understandable and emphasizes more on business logic rather than persistence work.
+ 	Hibernate is free and open source – Cost Effective
+192.	When to use JDBC over Hibernate? Advantages of JDBC over Hibernate or vice versa?
+Developer has to write code in JDBC to map an object model's data representation to a relational data model and its corresponding database schema. 
+Hibernate itself takes care of this mapping using XML files so developer does not need to write code for this.
+
+JDBC supports only native Structured Query Language (SQL).
+Hibernate provides Hibernate Query Language (HQL) which is similar to SQL syntax and supports polymorphic queries too. It also supports native SQL statements.
+
+The mapping of Java objects with database tables has to be taken care of in JDBC.
+Hibernate provides transparent persistence and therefore there is no need to map database tables tuples to application objects during interaction with RDBMS.
+
+With JDBC, caching needs to be manually maintained. 
+Hibernate cache is set to application work space. Relational tuples are moved to this cache as a result of query. It improves performance during multiple writes for the same data.
+
+In JDBC there is no check that always every user has updated data.
+Hibernate enables definition of version type field to application, due to which Hibernate updates version field of database table every time relational tuple is updated in form of Java class object to that table.
+
+JDBC is preferred if there is huge data. Hibernate can make the performance slow.
+193.	Why do you need ORM tool like Hibernate?
+ORM tools like hibernate provide following benefits:
+Improved performance: Lazy loading, sophisticated caching, Eager loading
+Improved productivity: High-level object-oriented API, Less Java code to write, No SQL to write
+Improved maintainability: A lot less code to write
+Improved portability: ORM framework generates database-specific SQL for you
+194.	What are types of Generators for ID?
+SEQUENCE: uses a sequence in DB2, PostgreSQL, Oracle, SAP DB, McKoi or a generator in Interbase. The returned identifier is of type long, short or int
+INCREMENT: generates identifiers of type long, short or int that are unique only when no other process is inserting data into the same table. Do not use in a cluster.
+IDENTITY: supports identity columns in DB2, MySQL, MS SQL Server, Sybase and HypersonicSQL. The returned identifier is of type long, short or int.
+195.	Which version you work on?
+Hibernate 4
+196.	Have you used Criteria? List down its implementation. List down its expressions.
+Criteria cr = session.createCriteria(Employee.class);
+
+cr.add(Restrictions.gt("salary", 2000));
+// To get records having salary less than 2000
+cr.add(Restrictions.lt("salary", 2000));
+// To get records having fistName starting with zara
+cr.add(Restrictions.like("firstName", "zara%"));
+// Case sensitive form of the above restriction.
+cr.add(Restrictions.ilike("firstName", "zara%"));
+// To get records having salary in between 1000 and 2000
+cr.add(Restrictions.between("salary", 1000, 2000));
+// To check if the given property is null
+cr.add(Restrictions.isNull("salary"));
+// To check if the given property is not null
+cr.add(Restrictions.isNotNull("salary"));
+// To check if the given property is empty
+cr.add(Restrictions.isEmpty("salary"));
+// To check if the given property is not empty
+cr.add(Restrictions.isNotEmpty("salary"));
+
+List results = cr.list();
+
+197.	How you implement Hibernate?
+We used Spring Framework support for Hibernate 4.
+198.	How you implemented Transaction Management?
+Implemented Spring’s Declarative Transaction Management.
+199.	Have you implemented CACHE Mechanism in Hibernate? How to implement Secondary Cache Mechanism?
+Yes. 
+200.	You used query level cache or item level cache?
+201.	What is cacheConcurrencyStrategy?
+ReadOnly, ReadWrite, Nonstrict-read/write, transactional
+202.	How do you specify how much data to be there in memory and how long it to be lived?
+We can specify attributes in Cache as below:
+<cache
+    name="com.somecompany.someproject.domain.Country"
+    maxElementsInMemory="10000"
+    eternal="false"
+    timeToIdleSeconds="300"
+    timeToLiveSeconds="600"
+    overflowToDisk="true"
+/>
+203.	How Second Level Cache knows if the cached entity is changed?
+Second level cache validate itself for modified entities, if modification has been done through hibernate session APIs. If some user or process make changes directly in database, the there is no way that second level cache update itself until “timeToLiveSeconds” duration has passed for that cache region. In this case, it is good idea to invalidate whole cache and let hibernate build its cache once again.
+204.	Explain Inheritance in Hibernate? What are different strategies to implement in Inheritance?
+205.	Which relationship you have worked on? List all Relationship and explain how to implement that?
+OneToMany
+ManyToOne
+OneToOne
+ManyToMany
+
+@OneToMany(fetch = FetchType.LAZY, mappedBy = "stock")
+	public Set<StockDailyRecord> getStockDailyRecords() {
+		return this.stockDailyRecords;
+	}
+@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "STOCK_ID", nullable = false)
+	public Stock getStock() {
+		return this.stock;
+	}
+
+206.	What are the core interfaces of Hibernate?
+Session Interface
+SessionFactory Interface
+Configuration Interface
+Transaction Interface
+Query and Criteria Interface
+207.	Difference between Merge and Update?
+We cannot use update when the object is already in session. Here we will have to use merge.
+1.	        Student current = (Student)session.get(Student.class, 100);
+2.	        System.out.println("Before merge: " + current.getName());
+3.	        Student changed = new Student();
+4.	        changed.setId(100);
+5.	        changed.setName("Changed new Name");
+6.	        // session.update(changed); // Throws NonUniqueObjectException
+7.	        session.merge(changed); 
+8.	        System.out.println("After merge: " + current.getName());
+In the above program I have loaded a Student object of ID ‘100’ at line no 1. After that I have created a new Student object ‘changed’ with same ID ‘100’. Now if I try to call update method on this ‘changed’ object, then Hibernate will through a NonUniqueObjectException, because the same object (Student) with Id ‘100’ already exists in session.
+208.	Difference between Get and Load method?
+get() loads the data as soon as it’s called whereas load() returns a proxy object and loads data only when it’s actually required, so load() is better because it support lazy loading.
+Since load() throws exception(ObjectNotFound Exception) when data is not found, we should use it only when we know data exists. Get brings null if data is not present.
+We should use get() when we want to make sure data exists in the database.
+209.	Difference between save and persist method?
+Save even works outside the transaction until the session exists. Persist can only be used inside transaction.
+Save returns identifier. Persist has void return type.
+210.	Explain the types of Hibernate instance states.  
+The persistent class’s instance can be in any one of the three different states. These states are defined with a persistence context. The Hibernate has the following instance states:
+Transient: This instance is never been associated with any one of the persistence process. This does not have persistent identity like primary key value.
+Persistent: A persistent context is made to associate with the current instance. It has persistent identity like primary key value and a corresponding row of a table in the data base. Hibernate guarantees the persistent identity is equivalent to the java Identity [object], for a particular persistence context
+Detached: This instance association with a persistence context is only once and the context was closed or serialized to another process. The persistent identity is retained and it can be a corresponding row in a database.
+211.	Collection Types in Hibernate?
+212.	List some annotations used in Hibernate?
+Entity Id Column Table Cacheable OneToMany ManyToOne NamedNativeQuery
+213.	What is Lazy Initialization in Hibernate?
+The delaying the object creation or calculating a value or some process until the first time it is needed. The retrieval of particular information only at the time when the object is accessed, is lazy initialization in hibernate. A scenario for lazy initialization is:
+When the field creation is expensive, a field may or may not be invoked.
+In this scenario the creation of a field can be deferred until the actual moment is arise to use it. The performance is increased using this technique, by avoiding unnecessary creation of objects which is expensive and consumes the memory space.
+214.	What is lazy fetching in hibernate?  
+Lazy fetching is associated with child objects loading for its parents. While loading the parent, the selection of loading a child object is to be specified / mentioned in the hbm.xml file. Hibernate does not load the whole child objects by default. Lazy=true means not to load the child objects.
+215.	What is the difference between sorted and ordered collection in hibernate?
+A sorted collection is sorted by utilizing the sorting features provided by the Java collections framework.
+The sorting occurs in the memory of JVM which running Hibernate, after the data being read from database using java comparator.
+The efficiency depends on the size of the collection.
+Ordered collection is sorted by specifying the order-by clause for sorting this collection when retrieval.
+This is an efficient way to sort larger collections.
+216.	What is Cascade? When to use it and how?
+217.	How to show Queries in logger?
+<property name="show_sql">true</property>
+218.	What is Query Level Cache? How to implement?
+219.	What to change and where if we want to change database?
+Dialect property in configuration file while creating SessionFactory
+220.	What is Session Factory Interface and Session Interface?
+221.	What is Named query? How to implement it?
+222.	Can @NamedQuery annotation will have the query for only that java class or there can be other as well?
+Yes, need to check more on this.
+223.	Can we write SQL queries in Hibernate? How to implement NamedNativeQueries?
+Yes you can create it with createSQLQuery() of session or NamedNativeQueries.
+224.	How is sequence generator done?
+@Id
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="course_seq")
+	@SequenceGenerator(
+		name="course_seq",
+		sequenceName="course_sequence",
+		allocationSize=20
+	)
+	private int id;
+225.	Difference between Query and Criteria?
+Criteria can perform only read operations.
+226.	What was the most challenging part to implement in your project related to Hibernate?
+227.	What is inverse attribute?
+This attribute is used with relationships. It basically tells which entity is responsible for maintaining relationship.
+228.	When does TransientObjectException occur?
+It occurs if you trying to save an entity that has relationship with other entities which are not saved.
+If we have implemented oneToMany and ManyToOne mapping. We are trying directly to save parent object it will throw this error. We will have to mention the CascadeType to overcome this exception and save the both entity records to Database.
+229.	If there is flag column in table and I want to pull all records where flag is ‘Y’, also don’t want to use where clause or similar because in a project that table is used at many places and I don’t want to write where for all those queries, How to do it?
+Use @Where(clause=”Y”) annotation on that field inside that entity will work.
+230.	When does LazyInitializationException occur?
+This exception occurs when trying to access an object that is detached(Session is closed).
+ 
+ 
+SPRING FRAMEWORK
+231.	What modules you have worked of Spring Framework?
+Spring IOC
+Spring MVC
+Spring Declarative Transaction
+Spring support for Hibernate
+Spring Batch 
+232.	What design patterns are used in Spring?
+Spring Framework is using a lot of design patterns,
+ 	Singleton Pattern: Creating beans with default scope.
+ 	Factory Pattern: Bean Factory classes
+ 	Prototype Pattern: Bean scopes
+ 	Adapter Pattern: Spring Web and Spring MVC
+ 	Proxy Pattern: Spring Aspect Oriented Programming support
+ 	Template Method Pattern: JdbcTemplate, HibernateTemplate etc
+ 	Front Controller: Spring MVC DispatcherServlet
+ 	Data Access Object: Spring DAO support
+233.	What are types of Spring Transaction Management? Which you used and why?
+Programmatic Transaction and Declarative Transaction
+We used Declarative Transaction in our project.
+234.	What is FrontController?
+235.	If there are two beans singleton and prototype, prototype is referenced from singleton then will it create different instance for prototype or same instance?
+Prototype means that every ApplicationContext/BeanFactory.getBean will return a new instance, but once the prototype is injected it stays the same.
+You can use lookup method to create new instance of bean inside singleton.
+A solution is to forego some inversion of control. You can make bean A aware of the container by implementing the ApplicationContextAware interface, and by making a getBean("B") call to the container ask for (a typically new) bean B instance every time bean A needs it.
+236.	What does Component annotation do? Is it only for Spring Beans?
+The @Component annotation marks a java class as a bean so the component-scanning mechanism of spring can pick it up and pull it into the application context.
+They are almost the same - all of them mean that the class is a Spring bean. @Service, @Repository and @Controller are specialized @Components. You can choose to perform specific actions with them
+237.	What is daemon thread and how does it is used in Spring Batch?
+238.	Explain how to implement Spring MVC? Spring MVC flow?
+Step 1: First request will be received by DispatcherServlet
+Step 2: DispatcherServlet will take the help of HandlerMapping and get to know the Controller class name associated with the given request
+Step 3: So request transfer to the Controller, and then controller will process the request by executing appropriate methods and returns ModeAndView object (contains Model data and View name) back to the DispatcherServlet
+Step 4: Now DispatcherServlet send the model object to the ViewResolver to get the actual view page
+Step 5: Finally DispatcherServlet will pass the Model object to the View page to display the result.
+239.	List the annotations used in Spring Framework?
+240.	What is Spring Batch? How is it carried out and what are the advantages?
+241.	How will you schedule a job?
+ 	We can use any scheduler like Quartz Cron. You can create your jobs and then you need to create Trigger instance  and then use it's withSchedule method inside which you have CronScheduleBuilder as parameter.
+CronScheduleBuilder has cronschedule method inside which we create CronExpression which actually tells in what time you have to repeat that job.
+Or you can use dailyAtHourAndMinute, weeklyOnDayAndHourAndMinute, monthlyOnDayAndHourAndMinute, etc of CronScheduleBuilder to set your time accordingly.
+ 	Configure JobLauncher (SimpleJobLauncher has JobRepositoryFactoryBean has datasource and ResourcelessTransactionManager). Create schedule-tasks where you mention cron expression
+	<task:scheduled-tasks>
+<task:scheduled ref="myScheduler" method="run" cron="*/5 * * * * *"/> //this will run every 5 seconds
+    	</task:scheduled-tasks> 
+	
+	# +------------- min (0 - 59)
+	# ¦ +-------------- hour (0 - 23)
+	# ¦ ¦ +--------------- day of month (1 - 31)
+	# ¦ ¦ ¦ +---------------- month (1 - 12)
+	# ¦ ¦ ¦ ¦ +----------------- day of week (0 - 6) (0 to 6 are Sunday to
+	# ¦ ¦ ¦ ¦ ¦                  Saturday, or use names; 7 is also Sunday)
+	# ¦ ¦ ¦ ¦ ¦
+	# ¦ ¦ ¦ ¦ ¦
+	# * * * * *  command to execute
+	@yearly (or @annually)	Run once a year at midnight of January 1	0 0 1 1 *
+	@monthly	Run once a month at midnight of the first day of the month	0 0 1 * *
+	@weekly	Run once a week at midnight on Sunday morning	0 0 * * 0
+	@daily	Run once a day at midnight	0 0 * * *
+	@hourly	Run once an hour at the beginning of the hour	0 * * * *
+	@reboot	Run at startup	@reboot
+242.	Explain @ Resource @Qualifier @Autowire @Required
+ 	@Resource means get me a known resource by name. The name is extracted from the name of the annotated setter or field, or it is taken from the name-Parameter.
+ 	@Inject or @Autowired try to wire in a suitable other component by type.
+243.	Have you done java based configuration? How is it done?
+244.	What is Spring IOC? What is Dependency Injection? Types of injection?
+Constructor Injection and Setter Injection
+245.	Are getter methods necessary while injecting dependencies?
+No
+246.	How you use constructor injection? When you use how it resolves which constructor to call?
+< constructor-arg type=int value=20>
+With type and number of parameter we can resolve which constructor to be called.
+We can even use without type attribute but then if we have two constructors one with int and other string then despite it takes care of type conversion, it will not able to resolve. Coz 20 can be int or String.
+247.	When to use Constructor Injection and Setter Injection?
+Partial dependency: can be injected using setter injection but it is not possible by constructor. Suppose there are 3 properties in a class, having 3 arg constructor and setters’ methods. In such case, if you want to pass information for only one property, it is possible by setter method only.
+Overriding: Setter injection overrides the constructor injection. If we use both constructor and setter injection, IOC container will use the setter injection.
+Changes: We can easily change the value by setter injection. It doesn't create a new bean instance always like constructor. So setter injection is flexible than constructor injection
+Constructor dependency should be used when we have to set mandatory properties.
+248.	If a bean is singleton and two processes are trying to use that instance at the same time then what will happen?
+Spring container will take care of that. It’s our responsibility to make Singleton bean thread safe otherwise there can be an exception.
+Singleton bean properties should not have changing values.
+249.	What are types of scope in Spring Framework?
+250.	Difference between @Service, @Component, @Repository and @Controller
+In Spring 2.0 and later, the @Repository annotation is a marker for any class that fulfills the role or stereotype (also known as Data Access Object or DAO) of a repository. Among the uses of this marker is the automatic translation of exceptions.
+Spring 2.5 introduces further stereotype annotations: @Component, @Service, and @Controller. @Component is a generic stereotype for any Spring-managed component. @Repository, @Service, and @Controller are specializations of @Component for more specific use cases, for example, in the persistence, service, and presentation layers, respectively.
+Therefore, you can annotate your component classes with @Component, but by annotating them with @Repository, @Service, or @Controller instead, your classes are more properly suited for processing by tools or associating with aspects. For example, these stereotype annotations make ideal targets for pointcuts.
+Thus, if you are choosing between using @Component or @Service for your service layer, @Service is clearly the better choice. Similarly, as stated above, @Repository is already supported as a marker for automatic exception translation in your persistence layer.
+@Controller beans are used by spring-mvc
+251.	Have you used Aspect Oriented Programming?
+252.	Difference between Spring 3 and Spring 4?
+253.	Which version of Spring Framework you worked on?
+Version 3.1.6
+254.	Explain Spring Bean Life Cycle?
+The Bean Container finds the definition of the Spring Bean in the Configuration file.
+The Bean Container creates an instance of the Bean using Java Reflection API.
+If any properties are mentioned, then they are also applied. If the property itself is a Bean, then it is resolved and set.
+If the Bean class implements the BeanNameAware interface, then the setBeanName() method will be called by passing the name of the Bean.
+If the Bean class implements the BeanClassLoaderAware interface, then the method setBeanClassLoader() method will be called by passing an instance of the ClassLoader object that loaded this bean.
+If the Bean class implements the BeanFactoryAware interface, then the method setBeanFactory() will be called by passing an instance of BeanFactory object.
+If there are any BeanPostProcessors object associated with the BeanFactory that loaded the Bean, then the method postProcessBeforeInitialization() will be called even before the properties for the Bean are set.
+If the Bean class implements the InitializingBean interface, then the method afterPropertiesSet() will be called once all the Bean properties defined in the Configuration file are set.
+If the Bean definition in the Configuration file contains a 'init-method' attribute, then the value for the attribute will be resolved to a method name in the Bean class and that method will be called.
+The postProcessAfterInitialization() method will be called if there are any Bean Post Processors attached for the Bean Factory object.
+If the Bean class implements the DisposableBean interface, then the method destroy() will be called when the Application no longer needs the bean reference.
+If the Bean definition in the Configuration file contains a 'destroy-method' attribute, then the corresponding method definition in the Bean class will be called. 
+255.	How beans are instantiated in Spring?
+When the Spring context processes this <bean> element, it will use Class.forName(String) with the argument as com.foopack.Foo to instantiate that Class (Class#newInstance() or get a Constructor, depending). It will then again use reflection to get the appropriate setter for the <property> element and set its value to the specified value.
+Spring uses reflection to create instance of bean by calling constructor. For singleton it is created only once and then always returned the same instance after that.
+When a bean is a singleton, only one shared instance of the bean will be managed, and all requests for beans with an id or ids matching that bean definition will result in that one specific bean instance being returned by the Spring container.
+To put it another way, when you define a bean definition and it is scoped as a singleton, then the Spring IoC container will create exactly one instance of the object defined by that bean definition. This single instance will be stored in a cache of such singleton beans, and all subsequent requests and references for that named bean will result in the cached object being returned.
+256.	What are advantages of Spring Framework? Why you used it in your project?
+257.	What are types of Container in Spring Framework?
+BeanFactory, ApplicationContext and WebApplicationContext
+258.	Difference between BeanFactory and ApplicationContext?
+1.	To me, the primary difference to choose BeanFactory over ApplicationContext seems to be that ApplicationContext will pre-instantiate all of the beans. From the Spring docs: 
+Spring sets properties and resolves dependencies as late as possible, when the bean is actually created. This means that a Spring container which has loaded correctly can later generate an exception when you request an object if there is a problem creating that object or one of its dependencies. For example, the bean throws an exception as a result of a missing or invalid property. This potentially delayed visibility of some configuration issues is why ApplicationContext implementations by default pre-instantiate singleton beans. At the cost of some upfront time and memory to create these beans before they are actually needed, you discover configuration issues when the ApplicationContext is created, not later. You can still override this default behavior so that singleton beans will lazy-initialize, rather than be pre-instantiated.
+2.	BeanFactory doesn't provide support for internationalization i.e. i18n but ApplicationContext provides support for it.
+3.	Another difference between BeanFactory vs ApplicationContext is ability to publish event to beans that are registered as listener.
+4.	ApplicationContext extends BeanFactory, has some advanced features.
+259.	Implementations of BeanFactory?
+XMLBeanfactory
+260.	Implementations of ApplicationContext?
+The FileSystemXmlApplicationContext container loads the definitions of the beans from an XML file. The full path of the XML bean configuration file must be provided to the constructor.
+The ClassPathXmlApplicationContext container also loads the definitions of the beans from an XML file. Here, you need to set CLASSPATH properly because this container will look bean configuration XML file in CLASSPATH.
+The WebXmlApplicationContext: container loads the XML file with definitions of all beans from within a web application.
+261.	What is contextConfigLocation?
+262.	What is contextLoaderListener?
+The purpose of the ContextLoaderListener is two-fold:
+to tie the lifecycle of the ApplicationContext to the lifecycle of the ServletContext and
+to automate the creation of the ApplicationContext, so you don't have to write explicit code to do create it - it's a convenience function.
+263.	What are Spring Beans?
+The Spring Beans are Java Objects that form the backbone of a Spring application. They are instantiated, assembled, and managed by the Spring IOC container. These beans are created with the configuration metadata that is supplied to the container, for example, in the form of XML <bean/> definitions.
+Beans defined in spring framework are singleton beans. There is an attribute in bean tag named "singleton" if specified true then bean becomes singleton and if set to false then the bean becomes a prototype bean. By default, it is set to true. So, all the beans in spring framework are by default singleton beans.
+264.	What does a Spring Bean definition contain?
+A Spring Bean definition contains all configuration metadata which is needed for the container to know how to create a bean, its lifecycle details and its dependencies.
+265.	How do you provide configuration metadata to the Spring Container?
+There are three important methods to provide configuration metadata to the Spring Container:
+XML based configuration file.
+Annotation-based configuration
+Java-based configuration
+266.	Which are the important beans lifecycle methods? Can you override them?
+There are two important bean lifecycle methods. The first one is setup which is called when the bean is loaded in to the container. The second method is the teardown method which is called when the bean is unloaded from the container.
+The bean tag has two important attributes (init-method and destroy-method) with which you can define your own custom initialization and destroy methods. There are also the corresponsive annotations (@PostConstruct and @PreDestroy).
+267.	How can you inject a Java Collection in Spring?
+Spring offers the following types of collection configuration elements:
+The <list> type is used for injecting a list of values, in the case that duplicates are allowed.
+The <set> type is used for wiring a set of values but without any duplicates.
+The <map> type is used to inject a collection of name-value pairs where name and value can be of any type.
+The <props> type can be used to inject a collection of name-value pairs where the name and value are both Strings.
+268.	What is bean wiring?
+Wiring, or else bean wiring is the case when beans are combined together within the Spring container. When wiring beans, the Spring container needs to know what beans are needed and how the container should use dependency injection to tie them together.
+269.	What is bean auto wiring?
+The Spring container is able to autowire relationships between collaborating beans. This means that it is possible to automatically let Spring resolve collaborators (other beans) for a bean by inspecting the contents of the BeanFactory without using <constructor-arg> and <property> elements.
+270.	Explain different types of Autowiring?
+no: This is default setting. Explicit bean reference should be used for wiring.
+byName: When autowiring byName, the Spring container looks at the properties of the beans on which autowire attribute is set to byName in the XML configuration file. It then tries to match and wire its properties with the beans defined by the same names in the configuration file.
+byType: When autowiring by datatype, the Spring container looks at the properties of the beans on which autowire attribute is set to byType in the XML configuration file. It then tries to match and wire a property if its type matches with exactly one of the beans name in configuration file. If more than one such beans exist, a fatal exception is thrown.
+constructor: This mode is similar to byType, but type applies to constructor arguments. If there is not exactly one bean of the constructor argument type in the container, a fatal error is raised.
+autodetect: Spring first tries to wire using autowire by constructor, if it does not work, Spring tries to autowire by byType.
+271.	What type is it when @Autowired annotation is used?
+It’s Autowire by type. Should use @Qualifier if more than one type is present otherwise it will throw exception.
+272.	Are there limitations with autowiring?
+Overriding: You can still specify dependencies using <constructor-arg> and <property> settings which will always override autowiring.
+Primitive data types: You cannot autowire simple properties such as primitives, Strings, and Classes.
+Confusing nature: Autowiring is less exact than explicit wiring, so if possible prefer using explicit wiring.
+273.	Can you inject null and empty string values in Spring?
+Yes.
+274.	How do you turn on annotation wiring?
+Annotation wiring is not turned on in the Spring container by default. In order to use annotation based wiring we must enable it in our Spring configuration file by configuring <context:annotation-config/> element.
+275.	What are the ways to access Hibernate by using Spring?
+Inversion of Control with a Hibernate Template and Callback. (Session is hidden)
+Extending HibernateDAOSupport and Applying an AOP Interceptor node.
+SessionFactoryBean
+276.	What is difference between HibernateTemplate implementation and HibernateDAOSupport implementation?
+Session is hidden in HibernateTemplate.
+277.	How is singleton instance instantiated?
+278.	What is the difference between using transaction versus not using transaction?
+279.	Why transaction management is used?
+To take care of ACID properties
+ 	Atomicity: This implies indivisibility; any indivisible operation (one which will either complete fully or not at all) is said to be atomic.
+ 	Consistency: A transaction must transition persistent data from one consistent state to another. If a failure occurs during processing, the data must be restored to the state it was in prior to the transaction.
+ 	Isolation: Transactions should not affect each other. A transaction in progress, not yet committed or rolled back (these terms are explained at the end of this section), must be isolated from other transactions. Although several transactions may run concurrently, it should appear to each that all the others completed before or after it; all such concurrent transactions must effectively end in sequential order.
+ 	Durability: Once a transaction has successfully committed, state changes committed by that transaction must be durable and persistent, despite any failures that occur afterwards.
+280.	What are Transaction attributes from J2EE? Give an example how you used it.
+A transaction attribute can have one of the following values:
+Required / RequiresNew / Mandatory / NotSupported / Supports / Never
+Spring has only Required and RequiresNew. Bydefault spring has Required.
+Required means one transaction is shared. RequiredNew is creating sub transaction for different methods.
+281.	What are isolation levels?
+Defines the data contract between transactions.
+Read Uncommitted: Allows dirty reads
+Read Committed: Does not allow dirty reads
+Repeatable Read: If a row is read twice in the same transaciton, result will always be the same
+Serializable: Performs all transactions in a sequence
+The different levels have different performance characteristics in a multi threaded application. I think if you understand the dirty reads concept you will be able to select a good option.
+  thread 1   thread 2      
+      |         |
+    write(x)    |
+      |         |
+      |        read(x)
+      |         |
+    rollback    |
+      v         v 
+           value (x) is now dirty (incorrect)
+
+282.	What does component-scan means?
+“context:component” in bean configuration file means, enable auto scanning feature in Spring. The base-package indicate where are your components stored, Spring will scan this folder and find out the bean (annotated with @Component,..) and register it in Spring container.	     <context:component-scan base-package="com.abc.customer" />
+283.	Which Transaction management type is more preferable?
+Most users of the Spring Framework choose declarative transaction management because it is the option with the least impact on application code, and hence is most consistent with the ideals of a non-invasive lightweight container. Declarative transaction management is preferable over programmatic transaction management though it is less flexible than programmatic transaction management, which allows you to control transactions through your code.
+ 
+RESTful WEB SERVICES
+284.	What is REST? What are RESTful Web Services?
+285.	Difference between SOAP and RESTful Web Service?
+ 
+286.	Which protocol does REST use?
+287.	Which REST methods you have used?
+288.	Where does you provide URL to be called for calling services?
+289.	How you will determine and return what response is needed by the requesting app?
+Some identifier has to come through PathParameter or QueryParameter or Request Header to determine what data form (json, xml, …) has to be sent back.
+290.	What is idempotent? Which are idempotent or safe methods?
+Idempotent means if the method is called again it doesn’t make any difference.
+Apart from POST, all are idempotent.
+291.	What’s the max URL size for GET method?
+2000 char.
+292.	When to use PUT method?
+293.	When you will use RESTful Web Services?
+294.	Advantages and Disadvantages of REST over SOAP? When to use SOAP?
+Areas that REST works really well for are:
+ 	Limited bandwidth and resources; remember the return structure is really in any format (developer defined). Plus, any browser can be used because the REST approach uses the standard GET, PUT, POST, and DELETE verbs. Again, remember that REST can also use the XMLHttpRequest object that most modern browsers support today, which adds an extra bonus of AJAX.
+ 	Totally stateless operations; if an operation needs to be continued, then REST is not the best approach and SOAP may fit it better. However, if you need stateless CRUD (Create, Read, Update, and Delete) operations, then REST is it.
+ 	Caching situations; if the information can be cached because of the totally stateless operation of the REST approach, this is perfect.
+
+SOAP is fairly mature and well-defined and does come with a complete specification. The REST approach is just that, an approach and is wide open for development, so if you have the following then SOAP is a great solution:
+ 	Asynchronous processing and invocation; if your application needs a guaranteed level of reliability and security then SOAP 1.2 offers additional standards to ensure this type of operation. Things like WSRM – WS-Reliable Messaging.
+ 	Formal contracts; if both sides (provider and consumer) have to agree on the exchange format then SOAP 1.2 gives the rigid specifications for this type of interaction.
+ 	Stateful operations; if the application needs contextual information and conversational state management then SOAP 1.2 has the additional specification in the WS* structure to support those things (Security, Transactions, Coordination, etc). Comparatively, the REST approach would make the developers build this custom plumbing.
+295.	What happens if RestFul resources are accessed by multiple clients? Do you need to make it thread-safe?
+Since a new Resource instance is created for every incoming Request there is no need to make it thread-safe or add synchronization. Multiple clients can safely access RestFul resources concurrently.
+296.	Explain how JAXB related to RESTful web services?
+JAXB stands for java arch for xml binding.
+297.	How to create REST client?
+ 	Create Client
+o	Client client = Client.create();
+ 	Create WebResource
+o	WebResource webResource = client.resource("http://localhost:8080/JerseyXMLExample/rest/xmlServices/send");
+ 	Create ClientResponse
+o	ClientResponse response = webResource.accept("application/xml").post(ClientResponse.class, st);
+ 	Get the output:
+if (response.getStatus() != 200) { throw new RuntimeException("Failed : HTTP error code : "+ response.getStatus());}
+String output = response.getEntity(String.class);
+298.	Difference between PUT and POST?
+299.	What is JAX-RS?
+JAX-RS is library for doing REST communication in various ways in java.
+300.	How to secure RESTful Web Services?
+You can secure it through SecurityContext, SecurityContext Annotation, OAUTH2, WSO2 Identity Server, etc
+301.	If you have annotated Produces as XML and if you are returning JSON string, will it work?
+
+302.	What implementations you used for REST in your project? How you did the integration with Spring?
+Jersey 1.9 implementation.
+<web-app id="WebApp_ID" version="2.4"
+	xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
+	http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+	<display-name>Restful Web Application</display-name>
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:applicationContext.xml</param-value>
+	</context-param>
+
+	<listener>
+		<listener-class>
+			org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+	</listener>
+
+	<servlet>
+		<servlet-name>jersey-serlvet</servlet-name>
+		<servlet-class>
+			com.sun.jersey.spi.spring.container.servlet.SpringServlet
+		</servlet-class>
+		<init-param>
+			<param-name>
+                                 com.sun.jersey.config.property.packages
+                        </param-name>
+			<param-value>com.mkyong.rest</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>jersey-serlvet</servlet-name>
+		<url-pattern>/rest/*</url-pattern>
+	</servlet-mapping>
+
+</web-app>
+
+ 
+AngularJS
+303.	What is CORS? What is Cross Domain issue and when we encounter it? How to avoid it?
+It occurs when we try to access/request any service which is on different domain. It can be avoided by using Access-Control-Allow-Method(Some settings has to be done by service as well and include this in Frontend) OR it can be avoided using JSONP.
+JSONP stands for JSON with Padding. It's also worth noting the one major issue with JSONP: you lose a lot of control of the request. For example, there is no "nice" way to get proper failure codes back. As a result, you end up using timers to monitor the request, etc, which is always a bit suspect. The proposition for JSONRequest is a great solution to allowing cross domain scripting, maintaining security, and allowing proper control of the request.
+304.	Why AngularJS?
+305.	Difference between config phase and run phase?
+ 	The config function is useful to configure providers before they're actually created. It's important to note that the config function can accept some providers as parameters through Dependency Injection, but the name of the function arguments must be written with the Provider suffix.
+ 	The run function could be useful to perform any kind of initialization after the objects instances registered in the module have already been created.
+We can have multiple config and run functions in the same module.
+306.	Difference between constant and value?
+A constant can be injected anywhere. It can be done in config phase.
+A constant can not be intercepted by a decorator, that means that the value of a constant should never be changed.
+var app = angular.module('app', []);
+
+app.constant('PI', 3.14159265359);
+
+app.controller('appCtrl', function(PI) {
+    var radius = 4;
+    // calculate area of the circle
+    var area = PI * radius * radius; 
+});
+
+Value differs from constant in that value can not be injected into configurations(config phase), but it can be intercepted by decorators.
+var app = angular.module('app', []);
+
+app.value('greeting', 'Hello');
+
+app.config(function ($provide) {
+    $provide.decorator('greeting', function ($delegate) {
+        return $delegate + ' World!';
+    });
+});
+
+307.	What is AngularJS lifecycle?
+During application bootstrap, before Angular goes off creating all services, it configures and instantiates all providers. We call this the configuration phase of the application life-cycle. During this phase, services aren't accessible because they haven't been created yet.
+
+Once the configuration phase is over, interaction with providers is disallowed and the process of creating services starts. We call this part of the application life-cycle the run phase.
+308.	How it achieves dependency injection?
+It achieves through service, factory, value, provider, constant
+309.	Difference between factory and service and provider?
+Services
+Syntax: module.service( 'serviceName', function ); 
+Result: When declaring serviceName as an injectable argument you will be provided with an instance of the function. In other words new FunctionYouPassedToService().
+Factories
+Syntax: module.factory( 'factoryName', function ); 
+Result: When declaring factoryName as an injectable argument you will be provided with the value that is returned by invoking the function reference passed to module.factory.
+Providers
+Syntax: module.provider( 'providerName', function ); 
+Result: When declaring providerName as an injectable argument you will be provided with (new ProviderFunction()).$get(). The constructor function is instantiated before the $get method is called - ProviderFunction is the function reference passed to module.provider.
+Providers have the advantage that they can be configured during the module configuration phase.
+provide.value('a', 123);
+
+function Controller(a) {
+  expect(a).toEqual(123);
+}
+In this case the injector simply returns the value as is. But what if you want to compute the value? Then use a factory
+provide.factory('b', function(a) {
+  return a*2;
+});
+
+function Controller(b) {
+  expect(b).toEqual(246);
+}
+So factory is a function which is responsible for creating the value. Notice that the factory function can ask for other dependencies. But what if you want to be more OO and have a class called Greeter?
+function Greeter(a) {
+  this.greet = function() {
+    return 'Hello ' + a;
+  }
+}
+Then to instantiate you would have to write
+provide.factory('greeter', function(a) {
+  return new Greeter(a);
+});
+Then we could ask for 'greeter' in controller like this
+function Controller(greeter) {
+  expect(greeter instanceof Greeter).toBe(true);
+  expect(greeter.greet()).toEqual('Hello 123');
+}
+But that is way too wordy. A shorter way to write this would be provider.service('greeter', Greeter);
+But what if we wanted to configure the Greeter class before the injection? Then we could write.
+
+provide.provider('greeter2', function() {
+  var salutation = 'Hello';
+  this.setSalutation = function(s) {
+    salutation = s;
+  }
+
+  function Greeter(a) {
+    this.greet = function() {
+      return salutation + ' ' + a;
+    }
+  }
+
+  this.$get = function(a) {
+    return new Greeter(a);
+  };
+});
+Then we can do this:
+angular.module('abc', []).config(function(greeter2Provider) {
+  greeter2Provider.setSalutation('Halo');
+});
+
+function Controller(greeter2) {
+  expect(greeter2.greet()).toEqual('Halo 123');
+}
+As a side note, service, factory, and value are all derived from provider.
+
+provider.service = function(name, Class) {
+  provider.provide(name, function() {
+    this.$get = function($injector) {
+      return $injector.instantiate(Class);
+    };
+  });
+}
+
+provider.factory = function(name, factory) {
+  provider.provide(name, function() {
+    this.$get = function($injector) {
+      return $injector.invoke(factory);
+    };
+  });
+}
+
+provider.value = function(name, value) {
+  provider.factory(name, function() {
+    return value;
+  });
+};
+
+310.	Have you created custom directive?
+Define custom html tags.
+<student name = "Mahesh"></student><br/>
+<student name = "Piyush"></student>
+Define custom directive to handle above custom html tags.
+var mainApp = angular.module("mainApp", []);
+
+//Create a directive, first parameter is the html element to be attached.	  
+//We are attaching student html tag. 
+//This directive will be activated as soon as any student element is encountered in html
+
+mainApp.directive('student', function() {
+   //define the directive object
+   var directive = {};
+   
+   //restrict = E, signifies that directive is Element directive
+   directive.restrict = 'E';
+   
+   //template replaces the complete element with its text. 
+   directive.template = "Student: <b>{{student.name}}</b> , Roll No: <b>{{student.rollno}}</b>";
+   
+   //scope is used to distinguish each student element based on criteria.
+   directive.scope = {
+      student : "=name"
+   }
+   
+   //compile is called during application initialization. AngularJS calls it once when html page is loaded.
+	
+   directive.compile = function(element, attributes) {
+      element.css("border", "1px solid #cccccc");
+      
+      //linkFunction is linked with each element with scope to get the element specific data.
+      var linkFunction = function($scope, element, attributes) {
+         element.html("Student: <b>"+$scope.student.name +"</b> , Roll No: <b>"+$scope.student.rollno+"</b><br/>");
+         element.css("background-color", "#ff00ff");
+      }
+      return linkFunction;
+   }
+   return directive;
+});
+
+311.	Explain the whole flow of Angular JS?
+312.	Syntax of controller
+313.	What is $routeProvider?
+var mainApp = angular.module("mainApp", ['ngRoute']);
+
+mainApp.config(['$routeProvider', function($routeProvider) {
+   $routeProvider.
+   
+   when('/addStudent', {
+      templateUrl: 'addStudent.htm', controller: 'AddStudentController'
+   }).
+   
+   when('/viewStudents', {
+      templateUrl: 'viewStudents.htm', controller: 'ViewStudentsController'
+   }).
+   
+   otherwise({
+      redirectTo: '/addStudent'
+   });
+	
+}]);
+
+314.	How to transfer data in AngularJS app?
+Using $rootScope or factory or services.
+Using a service is the cleanest, fastest and easiest way to test. $rootScope is not a good practice.
+315.	What are filters?
+currency Format a number to a currency format.
+date Format a date to a specified format.
+filter Select a subset of items from an array.
+json Format an object to a JSON string.
+limitTo Limits an array/string, into a specified number of elements/characters.
+lowercase Format a string to lower case.
+number Format a number to a string.
+orderBy Orders an array by an expression.
+uppercase Format a string to upper case.
+316.	List some directives
+Ng-app, ng-model, ng-repeat, ng-select, ng-options, …
+317.	List some inbuilt services
+$http, $timeout, $location, $log, …
+318.	How you made Ajax calls? Which http methods you used?
+319.	How you managed cache?
+320.	How data binding is done?
+321.	Difference between ng-model and ng-bind?
+ngModel is responsible for:
+ 	Binding the view into the model, which other directives such as input, textarea or select require.
+ 	Providing validation behavior (i.e. required, number, email, url).
+ 	Keeping the state of the control (valid/invalid, dirty/pristine, touched/untouched, validation errors).
+ 	Setting related css classes on the element (ng-valid, ng-invalid, ng-dirty, ng-pristine, ng-touched, ng-untouched) including animations.
+ 	Registering the control with its parent form.
+ 	ng-model is intended to be put inside of form elements and has two-way data binding ($scope --> view and view --> $scope)
+Ng-bind:
+ 	Replacing the text content of the specified HTML element with the value of a given expression.
+ 	ng-bind has one-way data binding ($scope --> view). It has a shortcut {{ val }} which displays the scope value $scope.val inserted into html where val is a variable name.
+322.	How to create a table?
+Create a table tag as per html and use ng-repeat which has as array.
+323.	What directive would you use to hide elements from the HTML DOM by removing them from that DOM not changing their styling?
+The ngIf Directive, when applied to an element, will remove that element from the DOM if it’s condition is false. Also it removes the scope of that variable.
+324.	What is the role of services in AngularJS and name any services made available by default?
+ 	AngularJS Services are objects that provide separation of concerns to an AngularJS app.
+ 	AngularJS Services can be created using a factory method or a service method.
+ 	Services are singleton components. All components of the application (into which the service is injected) will work with single instance of the service.
+ 	An AngularJS service allows developing of business logic without depending on the View logic which will work with it.
+
+Few of the inbuilt services in AngularJS are:
+ 	the $http service: The $http service is a core Angular service that facilitates communication with the remote HTTP servers via the browser’s XMLHttpRequest object or via JSONP
+ 	the $log service: Simple service for logging. Default implementation safely writes the message into the browser’s console
+ 	the $anchorScroll: it scrolls to the element related to the specified hash or (if omitted) to the current value of $location.hash()
+Services are the best way to evolve reusable API within and AngularJS app
+325.	Why should one know about AngularJS Services?
+Well, understanding the purpose of AngularJS Services helps bring modularity to AngularJS code.
+326.	How would you specify that a scope variable should have one-time binding only?
+By using “::” in front of it. This allows the check if the candidate is aware of the available variable bindings in AngularJS.
+Angular processes the DOM as usual and once the value has been resolved it removes the particular property from it’s internal $$watchers list. What does this mean for performance? A lot! This is a fantastic addition to helping us fine tune our applications.
+It’s known that Angular becomes slower with around 2,000 bindings due to the process behind dirty-checking. The less we can add to this limit the better, as bindings can add up without us really noticing it!
+327.	Explain how $scope.$apply() works?
+$scope.$apply re-evaluates all the declared ng-models and applies the change to any that have been altered (i.e. assigned to a new value)
+Explanation: $scope.$apply() is one of the core angular functions that should never be used explicitly, it forces the angular engine to run on all the watched variables and all external variables and apply the changes on their values.
+328.	What is the difference between one-way binding and two-way binding?
+ 	One way binding implies that the scope variable in the html will be set to the first value its model is bound to (i.e. assigned to)
+ 	Two way binding implies that the scope variable will change its value every time its model is assigned to a different value
+329.	Where should we implement the DOM manipulation in AngularJS?
+In the directives. DOM Manipulations should not exist in controllers, services or anywhere else but in directives.
+330.	What should be the maximum number of concurrent “watches”? Bonus: How would you keep an eye on that number?
+To reduce memory consumption and improve performance it is a good idea to limit the number of watches on a page to 2,000. A utility called ng-stats can help track your watch count and digest cycles.
+331.	What is the difference between ng-show/ng-hide and ng-if directives?
+ng-show/ng-hide will always insert the DOM element, but will display/hide it based on the condition. ng-if will not insert the DOM element until the condition is not fulfilled.
+
+ng-if is better when we needed the DOM to be loaded conditionally, as it will help load page bit faster compared to ng-show/ng-hide.
+332.	Difference ng-options vs ng-repeat?
+The ng-repeat directive repeats a block of HTML code for each item in an array, it can be used to create options in a dropdown list, but the ng-options directive was made especially for filling a dropdown list with options, and has at least one important advantage:
+Dropdowns made with ng-options allows the selected value to be an object, while dropdowns made from ng-repeat has to be a string.
+333.	How to do Unit testing in AngularJS?
+ 
+JQUERY
+334.	How to create table using JQuery?
+335.	List some Built in methods.
+Show, hide, onClick, toggle, fadeIn, fadeout, ..
+336.	What are selectors in JQuery?
+ 	Name: It is used to selects all elements which match with the given element Name.
+ 	#ID: It is used to selects a single element which matches with the given ID
+ 	.Class: It is used to selects all elements, which match with the given Class.
+ 	Universal (*): It is used to selects all elements available in a DOM.
+ 	Multiple Elements E, F, G: It is used to selects the combined results of all the specified selectors E, F or G.
+ 	Attribute Selector: It is used to select elements based on its attribute value.
+337.	How to add and remove CSS classes to an element using jQuery?
+We can use addclass() jQuery method to add CSS class to an element and removeclass() jQuery method to remove CSS class from an element.
+338.	Why do we use jQuery?
+ 	Easy to use and learn.
+ 	Easily expandable.
+ 	Cross-browser support (IE 6.0+, FF 1.5+, Safari 2.0+, Opera 9.0+)
+ 	Easy to use for DOM manipulation and traversal.
+ 	Large pool of built in methods.
+ 	AJAX Capabilities.
+ 	Methods for changing or applying CSS, creating animations.
+ 	Event detection and handling.
+ 	Tons of plug-ins for all kind of needs.
+339.	What is the difference between .js and .min.js?
+jQuery library comes in 2 different versions Development and Production/Deployment. The deployment version is also known as minified version. So .min.js is basically the minified version of jQuery library file. Both the files are same as far as functionality is concerned. but .min.js is quite small in size so it loads quickly and saves bandwidth.
+340.	
+ 
+HTML & CSS
+341.	What is HTML5 Web Storage? Explain localStorage and sessionStorage.
+With HTML5, web pages can store data locally within the user’s browser.
+
+Earlier, this was done with cookies. However, Web Storage is more secure and faster. The data is not included with every server request, but used ONLY when asked for.
+
+The data is stored in name/value pairs, and a web page can only access data stored by itself. Unlike cookies, the storage limit is far larger (at least 5MB) and information is never transferred to the server.
+
+The difference between localStorage and sessionStorage involves the lifetime and scope of the storage.
+
+Data stored through localStorage is permanent: it does not expire and remains stored on the user’s computer until a web app deletes it or the user asks the browser to delete it. SessionStorage has the same lifetime as the top-level window or browser tab in which the script that stored it is running. When the window or tab is permanently closed, any data stored through sessionStorage is deleted.
+
+Both forms of storage are scoped to the document origin so that documents with different origins will never share the stored objects. But sessionStorage is also scoped on a per-window basis. If a user has two browser tabs displaying documents from the same origin, those two tabs have separate sessionStorage data: the scripts running in one tab cannot read or overwrite the data written by scripts in the other tab, even if both tabs are visiting exactly the same page and are running exactly the same scripts.
+342.	What is the lifetime of local storage?
+Local storage does not have a life time it will stay until either the user clear it from the browser or you remove it using JavaScript code.
+343.	What is the difference between local storage and cookies?
+  
+344.	What is difference between local storage and session storage?
+localStorage and sessionStorage both extend Storage. There is no difference between them except for the intended "non-persistence" of sessionStorage.
+
+That is, the data stored in localStorage persists until explicitly deleted. Changes made are saved and available for all current and future visits to the site.
+
+For sessionStorage, changes are only available per window (or tab in browsers like Chrome and Firefox). Changes made are saved and available for the current page, as well as future visits to the site on the same window. Once the window is closed, the storage is deleted.
+345.	What is inline attribute in html?
+346.	What is tag in html?
+HTML tags are the hidden keywords within a web page that define how the browser must format and display the content. Most tags must have two parts, an opening and a closing part. For example, <html> is the opening tag and </html> is the closing tag.
+347.	What is selector in CSS?
+348.	What is Syntax for class and id in CSS?
+349.	What is ‘display: inline’ in CSS?
+350.	What is difference between absolute, relative and fixed?
+ 
+JUNIT
+351.	How do you test protected method?
+A protected method can only be accessed within the same package where the class is defined. So, testing a protected method of a target class means we need to define your test class in the same package as the target class.
+352.	How do you test private method?
+A private method only be accessed within the same class. So there is no way to test a “private” method of a target class from any test class. A way out is that you can perform unit testing manually or can change your method from “private” to “protected”.
+353.	What happens if a test method throws an exception?
+If you write a test method that throws an exception by itself or by the method being tested, the JUnit runner will declare that test as fail.
+354.	When objects are garbage collected after a test is executed?
+By design, the tree of Test instances is built in one pass. Then the tests are executed in a second pass. The test runner holds strong references to all Test instances for the duration of the test execution. This means that for a very long test run with many Test instances, none of the tests may be garbage collected until the end of the entire test run. Therefore, if you allocate external or limited resources in a test, you are responsible for freeing those resources. Explicitly setting an object to null in the tearDown() method, for example, allows it to be garbage collected before the end of the entire test run. teardown() is in TestCase class.
+355.	What is Java “assert” statement?
+Java assertions allow the developer to put “assert” statements in Java source code to help unit testing and debugging.
+Helper methods which help to determine if the methods being tested are performing correctly or not
+ 	assertEquals([String message], expected, actual) –any kind of object can be used for testing equality –native types and objects, also specify tolerance when checking for equality in case of floating point numbers.
+ 	assertNull([String message], java.lang.Objectobject) –asserts that a given object is null
+ 	assertNotNull([String message], java.lang.Objectobject) –asserts that a given object isnotnull
+ 	assertTrue([String message], Boolean condition) –Asserts that the given Boolean condition is true
+ 	assertFalse([String message], Boolean condition) –Asserts that the given Boolean condition is false
+ 	fail([String message]) –Fails the test immediately with the optional message
+356.	Explain how you implemented Junit in your project?
+357.	How you rollback the data operations happened while running test?
+You can annotate with @Transactional to make it as a transaction and then use @Rollback(true/false) for every test.
+Or use TransactionConfiguration(defaultRollback = true) for making all transactions default rollback.
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = AppConfig.class)
+@TransactionConfiguration(defaultRollback = true)
+@Transactional
+public class Spring4JUnit4Test {
+  @Autowired
+  private IPersonDao personDao;
+  @Autowired
+  private HibernateTemplate  hibernateTemplate;
+  @Test
+  public void savePersonTest(){
+	  personDao.savePerson();
+	  Person person = hibernateTemplate.get(Person.class, 1);
+	  assertEquals("Ram", person.getName());
+  }
+}
+358.	Explain how you tested exception.
+You can mention in test annotation as expected attribute as below(Only one exception could be handled):
+@Test(expected=IndexOutOfBoundsException.class)
+
+To handle n number of exceptions(In JUNIT 4.7) use ExpectedException:
+public class FooTest {
+  @Rule
+  public final ExpectedException exception = ExpectedException.none();
+
+  @Test
+  public void doStuffThrowsIndexOutOfBoundsException() {
+    Foo foo = new Foo();
+
+    exception.expect(IndexOutOfBoundsException.class);
+    foo.doStuff();
+  }
+}
+
+359.	Which of the following  are usually automated and which are executed manually ? Unit Test / Integration Test ?
+Unit Test are usually automated and Integration Tests are usually executed manually. 
+360.	What are Junits ?
+Junit is the unit testing framework for Java.
+361.	Are Junits tested manually ?
+No , they are executed automatically.
+362.	How to test whether the returns value of the method is expected ?
+Using Assert.
+363.	Which package Assert belong to ?
+java.unit
+364.	What happens if the assert doesn't evaluate to be true ?
+Junit fails.
+365.	How to create a Junit to make sure that the tested method throws an exception ? 
+Using annotation Test with the argument as expected exception.
+@Test (expected = Exception.class)
+366.	What should I do if I want to make sure that a particular method of a class is getting called ? 
+If its a static method of the class , we can use verify to make sure it's getting called. If its an instance
+ method , We can mock the object and then use verify with the mocked object to make sure that the 
+method is getting called."
+367.	Name few Java Mocking frameworks ? 
+Mockito, PowerMock, EasyMock, JMock, JMockit
+368.	What is the use of Mockito.any ? 
+In case we need to verify that a method is being called with any argument and not a specific argument 
+we can use Mockito.any(Class), Mockito.anyString, Mockito.anyLong etc.  
+369.	How should we ignore or avoid executing set of tests ? 
+We can remove @Test from the respective test so as to avoid its execution. Alternatively we can put 
+@Ignore annotation on the Junit file if we want to ignore all tests in a particular file.
+370.	How can we test methods individually which are not visible or declared private ?
+We can either increase their visibility and mark them with annotation @VisibleForTesting or can 
+use reflection to individually test those methods.
+371.	Which PowerMock, Mockito and EasyMock versions you used?
+PowerMock 1.6.5, Mockito 1.9.5 and EasyMock 3.4
+372.	Why to use PowerMock with Mockito and not Mockito alone?
+PowerMock is an extension to Mockito that allows mocking of static methods, constructors, final classes and methods, private methods, removal of static initializers and more.
+373.	With Mockito how to throw exception?
+We can use doThrow method
+// a method that returns values
+when(mockFoo.someCall()).thenReturn(someValue);
+when(mockFoo.someCall()).thenThrow(new FooException());
+// a method with a void return
+doThrow(new FooException()).when(mockFoo).voidMethodThatThrows();
+374.	What is verify method used for in Mockito?
+Mockito.verify(MockedObject).someMethodOnTheObject(someParametersToTheMethod); verifies that the methods you called on your mocked object are indeed called. If they weren't called, or called with the wrong parameters, or called the wrong number of times, they would fail your test.
+375.	What is difference between @Spy and @Mock in Mockito?
+Mock object replaces mocked class entirely, returning recorded or default values. This is what is mostly used during unit testing.
+When spying, you take an existing object and "replace" only some methods. This is useful when you have a huge class and only want to mock certain methods (partial mocking).
+376.	What is the difference between “stubbing” and “verifying”?
+“stubbing” should be used for the items that you don’t really care about, but they are necessary to make the test pass. In contrast, “verifying” should be used to verify the behavior.
+377.	What is Mocking? Why Mockito?
+Mocking is a way to test the functionality of a class in isolation. Mocking does not require a database connection or properties file read or file server read to test a functionality. Mock objects do the mocking of the real service. A mock object returns a dummy data corresponding to some dummy input passed to it.
+Mockito facilitates creating mock objects seamlessly. It uses Java Reflection in order to create mock objects for a given interface. Mock objects are nothing but proxy for actual implementations.
+ 	No Handwriting − No need to write mock objects on your own.
+ 	Refactoring Safe − Renaming interface method names or reordering parameters will not break the test code as Mocks are created at runtime.
+ 	Return value support − Supports return values.
+ 	Exception support − Supports exceptions.
+ 	Order check support − Supports check on order of method calls.
+ 	Annotation support − Supports creating mocks using annotation.
+378.	a
+ 
+JSP/SERVLETS
+379.	In how many ways we can implement servlets?
+ 	Servlet Interface: It has following methods,
+o	Init()
+o	Service()
+	Destroy()
+o	getServletInfo()
+o	getServletConfig()
+ 	Generic Servlet (Abstract Class): Already implements Servlet Interface and it has implementation for all methods(concrete) except service(ServletRequest req, ServletResponse resp). We need to only implement service method.
+ 	HttpServlet (Abstract Class): All Servlet methods are concrete, means they are already implemented. Not mandatory to implement any methods, but then it will be of no use so it recommends to implement http methods. We need to override http doGet(HttpServletRequest req, HttpServletResponse resp) and doPost(HttpServletRequest req, HttpServletResponse resp) methods. 
+380.	When is the servlet loaded in memory?
+There is an attribute in web.xml “load-on-startup” which defines this to start on start up.
+Or servlet is loaded in memory when it is first used.
+381.	Difference between servlet and jsp lifecycle.
+Difference is it has one more phase which converts jsp into servlet class files. You can see this when you run your application server, it will create these classes in some temp folder.
+382.	What is difference between servlet config and servlet context?
+Config is created one per servlet whereas context is only one accessible by all servlets.
+383.	How the servlets are resolved from container?
+While calling servlet, servlet name will be part of URL.
+Servlet will be configured in web.xml, for container to resolve servlet.
+384.	Are Servlet instances Singleton?
+Yes.
+385.	What instances will be created by container apart from servlet instances?
+Servlet Config(Can be accessed only by one servlet, it’s created one per servlet) and Servlet Context(application level component, can be accessed by all servlets of an application ) will be created.
+386.	How to put value in ServletConfig and ServletContext?
+ServletConfig: In web.xml, inside servlet mapping <init-param> 
+ServletContext: In web.xml, at <web-app> level, inside <Context-param> tag.
+387.	Does all servlet class has to be public?
+Yes. It’s mandatory.
+388.	Explain Servlet lifecycle.
+Init service and destroy
+389.	Is Servlet client side or server side?
+Server side.
+390.	What is difference between ServletRequest and HttpServletRequest?
+ServletRequest cannot manage session.
+391.	How to redirect to other html from servlet?
+Response.sendRedirect(“./form.html”);
+392.	Which exception does doGet or doPost methods throw?
+ServletException and IOException
+393.	How to intercommunicate between servlet?
+ 	Using getServletContext().getServlet() – Not recommended
+ 	Using sendRedirect mechanism
+ 	Using requestDispatcher() 
+394.	How to implement listerner class and why?
+We can implement listener classes to create sessions instead of creating it inside doGet or doPost.
+This session will be accessed by multiple servlets. New instance is created for every user.
+ 	We need to create class implementing ServletListener/HttpServletListener/ServletRequestListener.
+ 	Give listener mappings in web.xml
+ 	In servlets we can just use request.getSession() and start using session data.
+ 	Session will be there until browser is closed or explicitly destroyed by session.invalidate() method.
+395.	How concurrency is maintained in Servlet?
+Servlets are singleton but container will create new session instance for every user. So the container will handle concurrency until we create bad servlet.
+396.	What are tags in JSP?
+These tags contain java code. JSPs are converted into servlet internally.
+ 	Declaration: Is used for initialization or declaration of variable. Will go to init() of servlet.
+ <%! ….. %>
+ 	Scriplet: We need to place java code which will go in service() of servlet.
+<% ….. %>
+ 	Expression: To write dynamic outputs use expressions. It’s same as out.println();
+<%= new Date()%>
+397.	JSPs are converted into servlets so where will the html code go?
+In servlet we use PrintWriter object. HTML code will go to PrintWriter object.
+Whenever we create this object in servlet and then out.println(“”); so this html code will be placed accordingly here.
+398.	Who generates JSP to servlet?
+JSP container will convert JSP to servlet and compile this servlet.
+399.	Why JSP as compared to servlet?
+Output is gonna be same. Instead of writing html code inside PrintWriter object which is tedious, we can directly write html as it is. Also we can use html editors which gives us better usability.
+400.	Where is JSP container?
+It usually built in in web servers like Apache.
+401.	How to import java classes if you have to use in your scriplets?
+<%@page import java.lang.... %>
+402.	What are include ways in JSP?
+We can use below two methods,
+ 	<jsp:include page=”page path” />
+It’s including page. This will get compile everytime. Good for dynamic contents.
+ 	<%@ include file=”page path” %>
+It’s including file. This will be compiled only once while first load. Good for static contents.
+403.	Can we get request scope in other servlet/JSP if we use response.sendRedirect?
+No. The request scope will not be available in other servlet/JSP. You can either keep content in session or use RequestDispatcher.
+404.	What is difference between RequestDispatcher.forward() vs HttpServletResponse.sendRedirect()?
+requestDispatcher - forward() method
+ 	When we use forward method, request is transfer to other resource within the same server for further processing.
+ 	In case of forward, web container handle all process internally and client or browser is not involved.
+ 	When forward is called on requestdispatcher object we pass request and response objects so our old request object is present on new resource which is going to process our request.
+ 	Visually we are not able to see the forwarded address, it is transparent.
+ 	Using forward () method is faster then send redirect.
+ 	When we redirect using forward and we want to use same data in new resource we can use request.setAttribute () as we have request object available.
+SendRedirect
+ 	In case of sendRedirect, request is transfer to another resource to different domain or different server for further processing.
+ 	When you use sendRedirect, container transfers the request to client or browser so URL given inside the sendRedirect method is visible as a new request to the client.
+ 	In case of sendRedirect call, old request and response objects are lost because it’s treated as new request by the browser.
+ 	In address bar, we are able to see the new redirected address. It’s not transparent.
+ 	sendRedirect is slower because one extra round trip is required, because completely new request is created and old request object is lost. Two browser request required.
+ 	But in sendRedirect, if we want to use we have to store the data in session or pass along with the URL.
+405.	What are JSP implicit object?
+JSP Implicit Objects are the Java objects available in each page and can be used directly without explicitly declaration.
+ 	request	HttpServletRequest object associated with the request. Each time a client requests a page the JSP engine creates a new object to represent that request. We can use the request object to get HTTP header information such as form data, cookies, HTTP methods etc.
+ 	response HttpServletResponse object associated with the response to the client. JSP engine creates an object to represent the response to the client. We can use this object to add new cookies or date stamps, HTTP status codes etc to the response.
+ 	out PrintWriter object used to send output to the client. We can use buffer in the output by using the buffered='false' attribute of the page directive. out.print(dataType dt) prints a data type value. out.println(dataType dt) prints a data type value then terminate the line with new line character. out.flush() flushes the stream.
+ 	session	HttpSession object associated with the request. The session object tracks client session between client requests.
+ 	application ServletContext object associated with application context. This object reoresents the JSP page through the entire lifecycle. It is created when the JSP page is initialized and will be removed when the JSP page is removed by the jspDestroy() method.
+ 	config	ServletConfig object associated with the page. We can use this object to access the Servlet or JSP engine initialization parameters such as the paths or file locations etc. config.getServletName() returns the servlet name , which is the string contained in the <servlet-name> element defined in the WEB-INF\web.xml file.
+ 	pageContext The pageContext object is an instance of a javax.servlet.jsp.PageContext object, which is used to represent the entire JSP page. This object contains informations about the request and response objects for each request. We can also get the directives issued to the JSP page, including the buffering information, the errorPageURL, and page scope from this object. The PageContext class defines fields, including PAGE_SCOPE, REQUEST_SCOPE, SESSION_SCOPE, and APPLICATION_SCOPE to identify the four scopes.
+ 	page A synonym for this, and is used to call the methods defined by the translated servlet class.
+ 	Exception Exception object used to access the exception data by JSP.
+406.	Why should we not create .jsp extension if we don’t have any java code?
+It’s not recommended coz unnecessarily it will go through jsp engine for execution.
+407.	JSP is server side or client side?
+Java Server Pages are server side components. They will run on server but their output will reflect on browser. JSPs are used to create dynamic web pages.
+ 
+JAVASCRIPT
+408.	How to create global variable?
+A variable declared outside a function, becomes GLOBAL.
+A global variable has global scope: All scripts and functions on a web page can access it.
+Variables declared within a JavaScript function, become LOCAL to the function.
+409.	What is prototype?
+410.	What is typeOf keyword? How to check type of object?
+411.	What is difference between == and ===?
+AJAX
+412.	
+MAVEN
+413.	What is archetype?
+Archetype is structure or template of the type of application we need to create. There are built in archetypes like spring-mvc, spring-jpa, java web, hibernate, …
+414.	What is groupId and artifactId
+groupId is package and artifactId is class name.
+GroupId and artifactId along with version identifies project uniquely.
+415.	How to generate archetype?
+Mvn archetype: generate
+Then it will ask for which type of application we want.
+416.	What are types of repository?
+Local: local system
+Central: It’s from maven’s repo
+Remote: 
+417.	What information does pom.xml have?
+Archetype info and dependency info.
+418.	What is maven build cycle?
+Maven is run by phases, read this default Maven build lifecycle article for more detail. So, when the “package” phase is executed, all its above phases – “validate“, “compile” and “test“, including the current phase “package” will be executed orderly.
+Validate - Compile – test -package – install - deploy
+419.	What is install and deploy?
+ 	Install downloads the dependencies(if it is not present in local repo) from maven repository to local repository for it to be available for next build.
+ 	Deploy keeps the archetype(project) in remote location for it to be used as dependency by other projects.
+420.	What is SNAPSHOT?
+It denotes project is under development. Once project is available for release then SNAPSHOT should be removed.
+XML
+421.	List all types of XML Parser.
+422.	How you converted java object to xml?
+423.	How you implemented JAXB?
+File file = new File("C:\\file.xml");
+JAXBContext jaxbContext = JAXBContext.newInstance(Customer.class);
+Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+// output pretty printed
+jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+jaxbMarshaller.marshal(customer, file);
+
+424.	Can we marshall/unmarshall json with JAXB?
+Yes. When we create marshaller then we need to set property MEDIA_TYPE as JSON.
+425.	Can we convert xml to java object with JACKSON?
+Yes. Instead of ObjectMapper we need to create XMLMapper, then use readValue/writeValue methods.
+426.	How XML conversion is done through RESTful Web Services?
+427.	What is difference between DOM and SAX parser?
+DOM stands for Document Object Model
+ 	DOM reads the entire document – So should be used for small files and not for big files.
+ 	DOM is slower than SAX
+ 	DOM is tree based parser
+ 	DOM can insert and delete nodes
+SAX stands for Simple API for XML
+ 	SAX reads node by node -  Can be used for big files
+ 	SAX is faster than DOM
+ 	SAX is event based parser
+ 	SAX cannot insert and delete nodes
+428.	How does DOM parser work?
+Get the File  Create Document Builder Factory  Create Document Builder  builder.parse() will give you Document  doc.getElementByTagName(“root”) will give NodeList  Iterate nodeList  Get node by nodeList.item()  check for node.getNodeType == Node.ELEMENT_NODE  Cast and get the element elem = (Element) node   Now you get the actual attribute with elem.getAttribute(“id”).
+429.	How does SAX parser work?
+ 	Create mysaxHandler class extending DefaultHandler and give below methods
+ 	StartDocument  startElement  characters  endElement  endDocument
+ 	SAXParser p = SAXParserFactory.newInstance().newParser();
+p.parse(newFileInputSteram (), new mysaxHandler());
+Accordingly the 5 methods will be called. For every node or data read, it calls a corresponding method in mysaxHandler class.
+startDocument and endDocument are called when an XML doc is stated to read and after reading the entire doc.
+430.	How to create XML with DOM parser?
+Create Document Builder Factory   Document Builder  Document  Create Element with doc.createElement()  Create Text with doc.createTextNode()  attach Text to Element with Element’s appendChild() method  Use transform() method is used of Transformer to convert this into XML file.
+431.	a
+ 
+JDBC
+432.	How to perform JDBC? List all the steps.
+433.	How is JDBC done through Spring?
+434.	What is difference between Statement, Prepared Statement and Callable Statement?
+435.	How to call Stored Procedure?
+436.	What is the method which is used for getting out parameter for Stored Procedure?
+ 
+JMS
+437.	What is difference between Point to Point and Publisher and Subscriber model?
+Point to Point Model	Publisher and Subscriber Model
+There can be multiple producer and multiple consumer but each message has only one consumer. It’s not delivered to all the consumers
+	Each message is consumed by every Subscriber.
+Message file destination is Queue	Message file destination is Topic
+The Sender or Receiver has no timing dependency.
+Even if Consumer is not running still the message will there on Queue, Once Consumer is running that will be consumed.	Has timing dependency. Consumer should be subscribed at the time message is on topic otherwise it will be missed. Message is immediately consumed by all the subscriber subscribed at that moment.
+The receiver acknowledges successful processing of a message.	Does not provide acknowledgement.
+
+438.	JMS programming model
+Connection Factory  Connection  Session  Message Producer/Consumer  Send/Receive
+439.	What type of consumers are there?
+ 	Synchronous: Above method is Synchronous which waits for message to be read. We can use receive method for synchronous reception.
+ 	Asynchronous: This method does not wait for message to be consumed. It has to be implemented using listener and then creating onMessage method.
+440.	How you implemented JMS?
+Using spring you can create JMSTemplate in configuration file. It has connectionFactory (ActiveMQConnectionFactory) and timeout details.
+Feed the jmsTemplate to Consumer and Producer. Then you can use JMSTemplate's send and receive methods to send or receive messages for synchronous implementation.
+441.	How to implement JMS asynchronously?
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.MessageListener;
+import javax.jms.TextMessage;
+public class ExampleListener implements MessageListener {
+
+    public void onMessage(Message message) {
+        if (message instanceof TextMessage) {
+            try {
+                System.out.println(((TextMessage) message).getText());
+            }
+            catch (JMSException ex) {
+                throw new RuntimeException(ex);
+            }
+        }
+        else {
+            throw new IllegalArgumentException("Message must be of type TextMessage");}}}
+Once you’ve implemented your MessageListener, it’s time to create a message listener container.
+
+Find below an example of how to define and configure one of the message listener containers that ships with Spring (in this case the DefaultMessageListenerContainer).
+<!-- this is the Message Driven POJO (MDP) -->
+<bean id="messageListener" class="jmsexample.ExampleListener" />
+
+<!-- and this is the message listener container -->
+<bean id="jmsContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+    <property name="connectionFactory" ref="connectionFactory"/>
+    <property name="destination" ref="destination"/>
+    <property name="messageListener" ref="messageListener" />
+</bean>
+
+442.	In synchronous receive if transaction gets stuck then how to handle?
+The receiveTimeout specifies how long receiver should wait before giving up waiting for a message.
+443.	What is difference between RPC and JMS?
+In RPC the method invoker waits for the method to finish execution and return the control back to the invoker. Thus it is completely synchronous in nature. While JMS can be synchronous and asynchronous.
+444.	Are you aware of any major JMS products available in the market?
+MQSeries by IBM, ActiveMQ by Apache, etc
+445.	What are three components of Message?
+ 	Message header: For message identification. For example, the header is used to determine if a given message is appropriate for a "subscriber"
+ 	Properties: For application-specific, provider-specific, and optional header fields
+ 	Body: Holds the content of the message. Several formats are supported, including TextMessage, which wrap a simple String, that wrap arbitrary Java objects (which must be serializable). Other formats are supported as well.
+446.	
+
+ 
+UNIX
+447.	Write command to list all the links from a directory?
+ls -lrt | grep "^l"
+448.	Create a read-only file in your home directory?
+vi file
+chmod 400 file
+449.	How will you find which operating system your system is running on in UNIX?
+Uname -a
+450.	How will you run a process in background? How will you bring that into foreground and how will you kill that process?
+Ps -ef | grep processName
+Kill -9 processID
+451.	How do you know if a remote host is alive or not?
+Either ping or telnet command.
+452.	How do you see command line history in UNIX?
+Use history command along with grep.
+453.	How do you copy file from one host to other?
+Scp command
+454.	How do you find which process is taking how much CPU?
+May be TOP command
+455.	How do you check how much space left in current drive ?
+Df -h
+456.	What is "chmod" command? What do you understand by this line “r-- -w- --x?
+chmod command is used to change permission of a file or directory in UNIX. The line you see shows the permission for three different set of people : user, group and others. User is the currently logged in user, while group is for all other member which are part of certain group and others means anyone other than user and group member. Each group has three permissions rwx stands for read, write and execute and they are written as user_group_others. So in above line, user has only read permission, group members has write permissions and other people has only execute permission. If it is a directory then you need execute permission to go inside that directory. See here for more detailed answer.
+457.	What is Zombie process in UNIX? How do you find Zombie process in UNIX?
+When a program forks and the child finishes before the parent, the kernel still keeps some of its information about the child in case the parent might need it - for example, the parent may need to check the child's exit status. To be able to get this information, the parent calls 'wait()'; In the interval between the child terminating and the parent calling 'wait()', the child is said to be a 'zombie' (If you do 'ps', the child will have a 'Z' in its status field to indicate this.)
+Zombie : The process is dead but have not been removed from the process table.
+458.	There is a file some where in your system which contains word "UnixCommandInterviewQuestions” How will find that file in Unix?
+By using find command
+459.	In a file word UNIX is appearing many times? How will you count number?
+Grep -c “Unix” filename
+460.	How do you set environment variable which will be accessible form sub shell?
+export
+461.	How do you check if a particular process is listening on a particular port on remote host?
+telnet hostname port
+462.	How do you find whether your system is 32 bit or 64 bit ?
+Uname -a or arch
+463.	How do you find which processes are using a particular file?
+By using lsof command in UNIX. It wills list down PID of all the process which is using a particular file.
+464.	Your application home directory is full? How will you find which directory is taking how much space?
+By using disk usage (DU) command in Unix for example du –sh . | grep G  will list down all the directory which has GIGS in Size.
+465.	How do you find which remote hosts are connecting to your host on a particular port say 10123?
+By using netstat command execute netstat -a | grep "port" and it will list the entire host which is connected to this host on port 10123.
+466.	You have an IP address in your network how will you find hostname and vice versa?
+By using nslookup command in UNIX, you can read more about convert IP Address to hostname in Unix here.
+467.	a
+ 
+DATASTRUCTURE
+468.	How to find middle element of linked list in one pass?
+469.	How to find if linked list has a loop?
+470.	How to find 3rd element from end in a linked list in one pass?
+471.	In an integer array, there is 1 to 100 number, out of one is duplicate, how to find?
+472.	How to reverse String in Java? How to do it recursively?
+473.	What is the difference between Stack and Queue data structure?
+474.	What is difference between Singly Linked List and Doubly Linked List data structure?
+475.	What is binary search tree?
+476.	Difference between binary tree and binary search tree?
+Binary tree: Tree where each node has up to two leaves
+  1
+ / \
+2   3
+Binary search tree: Used for searching. A binary tree where the left child contains only nodes with values less than the parent node, and where the right child only contains nodes with values greater than or equal to the parent.
+  2
+ / \
+1   3
+477.	How to reverse linked list using recursion and iteration?
+478.	List some sorting algorithm? And their difference?
+Bubble Sort, Insertion Sort, Selection Sort, Quick Sort, Merge Sort, ….
+479.	Which sorting algorithm is fastest?
+480.	List some data structures.
+Array, Linked List, Doubly Linked List, Binary Search Tree, ….
+481.	What are searching algorithms?
+Linear Search and Binary search.
+They are used to search an element in an already sorted array. 
+482.	a
+ 
+PROJECT
+483.	How you did load balancing? What are ways to do?
+484.	How you did Transaction Management?
+485.	If you need to show 10,000 records in your UI, How you will do it?
+I would suggest taking care of the following:
+ 	Use Cache Mechanism of ORM tool.
+ 	Don’t do any sorting or reordering in Java.
+ 	Do all the complex activities on DB side, as the processing speed is very fast in DB. For that matter you can make StoredProcedures.
+486.	What is the cache memory size of the browser?
+487.	How to manage cache if there is lot of data coming on UI? What will happen?
+488.	What will happen if two user logs in at a same time?
+489.	How you managed Security in your project?
+490.	Explain your project? Explain your architecture?
+491.	Why you working on or accepted this architecture? 
+492.	What are the problems faced while implementing this architecture?
+493.	How to find correct version of jar/war from project?
+From the Manifest file we can recognize the correct version of jar/war.
+494.	What Design Patterns you have worked on?
+495.	What is difference between Factory Pattern and Abstract Factory Pattern?
+Abstract Factory Patterns work around a super factory which creates other factories. It’s factory of factories. In Factory Pattern, we create a factory and it has certain implementations. On top of this if we create an super class which resolves the factories then it is Abstract Factory Pattern.
+496.	Different ways to create track sessions in Web Application?
+Cookies, listener classes, etc
+497.	How you did Session Management in your project?
+498.	How you called sterling api’s in your project? How you called wsdl?
+499.	If we want to use two unrelated interface, which design pattern we should use? What is Abstract pattern?
+We should use Abstract pattern.
+500.	List version of all the technologies used till date.
+Jackson 2.6.3	
+Maven 2.7
+Eclipse Kepler 4.3
+Spring 3.1.6
+Hibernate 4
+JUNIT 4.10
+AngularJS 1.3
+Jersey 1.9
+JQuery 2.0
+JAXB 2.0
+501.	Java 7 features
+ 	the integral types (byte, short, int, and long) can also be expressed using the binary number system
+ 	Strings in switch statement 
+ 	Try with resources
+ 	Multiple exceptions in Catch block
+ 	JDBC
+ 	IO
+502.	Java 8 Features
+ 	Lambda expressions
+ 	Interface allows default and static methods and there implementation.
+ 	Repeating annotations.
+ 	Method references.
+ 	Optional: there is some concept of ‘Optional’ to avoid NullPointerException.
+ 	JavaScript: Java 8 comes with new Nashorn JavaScript engine which allows developing and running certain kinds of JavaScript applications on JVM.
+ 	Parallel Sort
+503.	End
+
+
+
